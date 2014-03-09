@@ -124,4 +124,10 @@
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 28</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
 </root>

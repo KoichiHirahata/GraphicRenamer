@@ -426,5 +426,8 @@ namespace GraphicRenamer
             if(e.KeyCode == Keys.Escape)
             { tbID.Text = ""; }
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        { System.Diagnostics.Process.Start("http://www.madeinclinic.jp/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2/pt_graphic/graphicrenamer/"); }
     }
 }
