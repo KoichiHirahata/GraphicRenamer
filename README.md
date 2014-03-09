@@ -1,2 +1,2 @@
-GaphicRenamer
+GraphicRenamer
 =============
