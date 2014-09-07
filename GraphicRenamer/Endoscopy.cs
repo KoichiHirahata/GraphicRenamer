@@ -13,10 +13,11 @@ namespace GraphicRenamer
     {
         public static string determinFolderType(string folderPath)
         {
+            string text;
+            string ret = "Unknown";
+
             if (File.Exists(folderPath + "\\patient.inf"))
             {
-                string text;
-                string ret = "unknown";
                 #region Read from file
                 try
                 {
@@ -45,15 +46,48 @@ namespace GraphicRenamer
                 }
                 #endregion
             }
+            else
+            {
+                string[] infs = Directory.GetFiles(folderPath, "*.inf");
 
-            //●●●古いタイプの富士フイルム製かどうかチェック。TryParse使うなら、2014/02/08以前のコードに参考になるコードあるけどまぁググったら？
+                if (infs.Length != 0)
+                {
+                    #region Read from file
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(infs[0], Encoding.GetEncoding("Shift_JIS")))
+                        { text = sr.ReadToEnd(); }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return ret;
+                    }
+                    #endregion
 
-            return "Unknown";
+                    int index;
+                    #region Read P000:
+                    index = text.IndexOf("P000: ");
+                    if (index == -1)
+                    {
+                        MessageBox.Show("[inf file]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return ret;
+                    }
+                    else
+                    {
+                        ret = getUntilNewLine(text, index + 6).Trim();
+                        return ret;
+                    }
+                    #endregion
+                }
+            }
+
+            return ret;
         }
 
         /// <summary>patient.infから患者情報を取る関数。</summary>
-        /// <param name="filePath">ファイルのパス</param>
-        /// <returns>検査日、検査スタート時刻、検査終了時刻、患者ID、患者名の順の配列。</returns>
+        /// <param name="filePath">Path of file</param>
+        /// <returns>Array of examination date, start time, end time, patient ID, patient name.</returns>
         public static string[] getPtInfo(string filePath) //
         {
             #region ret initiate
@@ -62,77 +96,72 @@ namespace GraphicRenamer
             { ret[i] = ""; }
             #endregion
 
-            if (Path.GetFileName(filePath) == "patient.inf")
+            string text = "";
+            #region Read from file
+            try
             {
-                string text = "";
-                #region Read from file
-                try
-                {
-                    using (StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("Shift_JIS")))
-                    { text = sr.ReadToEnd(); }
-                }
-                catch (Exception e)
-                { MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-                #endregion
+                using (StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("Shift_JIS")))
+                { text = sr.ReadToEnd(); }
+            }
+            catch (Exception e)
+            { MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            #endregion
 
-                int index;
-                #region Read EXAM_DATE
-                index = text.IndexOf("EXAM_DATE: ");
-                if (index == -1)
-                {
-                    MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return ret;
-                }
-                else
-                { ret[0] = getUntilNewLine(text, index + 11); }
-                #endregion
-
-                #region Read EXAM_START
-                index = text.IndexOf("EXAM_START: ");
-                if (index == -1)
-                {
-                    MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return ret;
-                }
-                else
-                { ret[1] = getUntilNewLine(text, index + 12); }
-                #endregion
-
-                #region Read EXAM_END
-                index = text.IndexOf("EXAM_END: ");
-                if (index == -1)
-                {
-                    MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return ret;
-                }
-                else
-                { ret[2] = getUntilNewLine(text, index + 10); }
-                #endregion
-
-                #region Read PID
-                index = text.IndexOf("PID: ");
-                if (index == -1)
-                {
-                    MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return ret;
-                }
-                else
-                { ret[3] = getUntilNewLine(text, index + 5); }
-                #endregion
-
-                #region Read P(Patient name)
-                index = text.IndexOf("P: ");
-                if (index == -1)
-                {
-                    MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return ret;
-                }
-                else
-                { ret[4] = getUntilNewLine(text, index + 3); }
-                #endregion
+            int index;
+            #region Read EXAM_DATE
+            index = text.IndexOf("EXAM_DATE: ");
+            if (index == -1)
+            {
+                MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
             }
             else
-            { MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            { ret[0] = getUntilNewLine(text, index + 11); }
+            #endregion
+
+            #region Read EXAM_START
+            index = text.IndexOf("EXAM_START: ");
+            if (index == -1)
+            {
+                MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
+            }
+            else
+            { ret[1] = getUntilNewLine(text, index + 12); }
+            #endregion
+
+            #region Read EXAM_END
+            index = text.IndexOf("EXAM_END: ");
+            if (index == -1)
+            {
+                MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
+            }
+            else
+            { ret[2] = getUntilNewLine(text, index + 10); }
+            #endregion
+
+            #region Read PID
+            index = text.IndexOf("PID: ");
+            if (index == -1)
+            {
+                MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
+            }
+            else
+            { ret[3] = getUntilNewLine(text, index + 5).Trim(); }
+            #endregion
+
+            #region Read P(Patient name)
+            index = text.IndexOf("P: ");
+            if (index == -1)
+            {
+                MessageBox.Show("[" + Path.GetFileName(filePath) + "]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
+            }
+            else
+            { ret[4] = getUntilNewLine(text, index + 3).Trim(); }
+            #endregion
 
             return ret;
         }
@@ -151,22 +180,25 @@ namespace GraphicRenamer
 
             switch (Endoscopy.determinFolderType(sourceDir))
             {
-                #region VP-4450HD
+                #region VP-4450HD, VP-4400
                 case "VP-4450HD":
-                    if (File.Exists(sourceDir + @"\patient.inf"))
+                case "VP-4400":
+                    string[] infs = Directory.GetFiles(sourceDir, "*.inf");
+
+                    if (File.Exists(infs[0]))
                     {
-                        textArray = Endoscopy.getPtInfo(sourceDir + @"\patient.inf");
+                        textArray = Endoscopy.getPtInfo(infs[0]);
                         patientID = textArray[3].ToString();
                         dateStr = textArray[0].ToString();
 
-                        //ID、日付、名前、時間確認のフォーム表示。ID変更できるように。カレンダーも表示して、日付も変更できるよう配慮。なお、日付から[/]も消す。
+                        //Show dialog and display ID, date, name, time. User can change ID and examination date with the dialog.
                         #region set exam info
                         SetExamInfo sei = new SetExamInfo(patientID, dateStr, textArray[4].ToString(), textArray[1].ToString(), textArray[2].ToString());
                         sei.ShowDialog();
                         if (sei.OkCancel == "Cancel")
                         { return EndoResult.failed; }
                         patientID = sei.patientId;
-                        dateStr = sei.examinationDate;//これで[/]はなくなってる。
+                        dateStr = sei.examinationDate;//Delete "/" with this code.
                         sei.Dispose();
                         #endregion
 
@@ -279,35 +311,68 @@ namespace GraphicRenamer
                                 #endregion
                             }
                             #endregion
+
+                            #region Move TIF files(For VP-4400)
+                            string TIF_filename = "s" + Path.GetFileName(jpgArray[i].ToString()).Substring(0, Path.GetFileName(jpgArray[i].ToString()).Length - 3) + "TIF";
+                            if (File.Exists(Path.GetDirectoryName(jpgArray[i].ToString()) + "\\" + TIF_filename))
+                            {
+                                try
+                                {
+                                    File.Move(Path.GetDirectoryName(jpgArray[i].ToString()) + "\\" + TIF_filename, tempFilePath + ".tiff");
+                                    MainForm.logFileName(TIF_filename, Path.GetFileName(tempFilePath + ".tiff"));
+                                }
+                                #region catch
+                                catch (IOException)
+                                {
+                                    MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (ArgumentException)
+                                {
+                                    MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                #endregion
+                            }
+                            #endregion
                         }
 
-                        #region Move patient.inf
-                        try //patient.infもID_日付_serialNo.infに変更して移動。
+                        #region Move inf file(s)
+                        for (int i = 0; i < infs.Length; i++)
                         {
-                            File.Move(sourceDir + @"\patient.inf", destDir + @"\patient.inf");
-                            MainForm.logFileName(Path.GetFileName(sourceDir + @"\patient.inf"), Path.GetFileName(destDir + @"\patient.inf"));
+                            try
+                            {
+                                File.Move(infs[i], destDir + @"\" + Path.GetFileName(infs[i]));
+                                string infFileName = Path.GetFileName(infs[i]);
+                                MainForm.logFileName(infFileName, infFileName);
+                            }
+                            #region catch
+                            catch (IOException)
+                            {
+                                MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
                         }
-                        #region catch
-                        catch (IOException)
-                        {
-                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return EndoResult.error;
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return EndoResult.error;
-                        }
-                        catch (ArgumentException)
-                        {
-                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return EndoResult.error;
-                        }
-                        #endregion
                         #endregion
 
                         #region Delete sourceDir
-                        //元のフォルダの中身が空なのを確認してから削除する。
+                        //Delete source folder after checking that empty.
                         if (Directory.GetFiles(sourceDir, "*").Length == 0)
                         {
                             try
@@ -323,6 +388,12 @@ namespace GraphicRenamer
                         return EndoResult.success;
                     }
                     break;
+                #endregion
+
+                #region Unknown
+                case "Unknown":
+                    MessageBox.Show(Properties.Resources.UnsupportedFolderType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return EndoResult.failed;
                 #endregion
             }
             return EndoResult.failed;

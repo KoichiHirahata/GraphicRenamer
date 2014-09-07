@@ -177,6 +177,9 @@
   <data name="UnsupportedFileType" xml:space="preserve">
     <value>サポートされていないファイルです。</value>
   </data>
+  <data name="UnsupportedFolderType" xml:space="preserve">
+    <value>サポートされていないタイプのフォルダです。</value>
+  </data>
   <data name="UpperLimitIs8" xml:space="preserve">
     <value>印刷は8枚までです。</value>
   </data>

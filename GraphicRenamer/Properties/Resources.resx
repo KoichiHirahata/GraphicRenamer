@@ -177,6 +177,9 @@
   <data name="UnsupportedFileType" xml:space="preserve">
     <value>This file type is unsupported.</value>
   </data>
+  <data name="UnsupportedFolderType" xml:space="preserve">
+    <value>Unsupported folder type.</value>
+  </data>
   <data name="UpperLimitIs8" xml:space="preserve">
     <value>You can check until 8 pieces.</value>
   </data>
