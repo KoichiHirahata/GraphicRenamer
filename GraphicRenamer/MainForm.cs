@@ -297,7 +297,7 @@ namespace GraphicRenamer
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
-                    if (!(gFiles[0].Substring(gFiles[i].Length - 4).ToLower() == ".pdf"))
+                    if (!(gFiles[i].Substring(gFiles[i].Length - 4).ToLower() == ".pdf"))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;

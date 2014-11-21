@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbID = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ver104ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +46,8 @@
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.ver104ToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // settingsToolStripMenuItem
@@ -84,6 +86,12 @@
             this.pictureBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragDrop);
             this.pictureBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragEnter);
             // 
+            // ver104ToolStripMenuItem
+            // 
+            this.ver104ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ver104ToolStripMenuItem.Name = "ver104ToolStripMenuItem";
+            resources.ApplyResources(this.ver104ToolStripMenuItem, "ver104ToolStripMenuItem");
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -117,6 +125,7 @@
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ver104ToolStripMenuItem;
     }
 }
 
