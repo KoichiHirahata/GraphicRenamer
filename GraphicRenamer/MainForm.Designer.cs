@@ -32,11 +32,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ver104ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.tbID = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ver104ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -62,6 +62,12 @@
             resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
+            // ver104ToolStripMenuItem
+            // 
+            this.ver104ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ver104ToolStripMenuItem.Name = "ver104ToolStripMenuItem";
+            resources.ApplyResources(this.ver104ToolStripMenuItem, "ver104ToolStripMenuItem");
+            // 
             // monthCalendar1
             // 
             resources.ApplyResources(this.monthCalendar1, "monthCalendar1");
@@ -85,12 +91,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragDrop);
             this.pictureBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragEnter);
-            // 
-            // ver104ToolStripMenuItem
-            // 
-            this.ver104ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.ver104ToolStripMenuItem.Name = "ver104ToolStripMenuItem";
-            resources.ApplyResources(this.ver104ToolStripMenuItem, "ver104ToolStripMenuItem");
             // 
             // MainForm
             // 
