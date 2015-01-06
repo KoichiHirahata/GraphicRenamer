@@ -35,6 +35,7 @@ namespace GraphicRenamer
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingForm sf = new SettingForm();
+            sf.Owner = this;
             sf.ShowDialog(this);
             sf.Dispose();
         }
@@ -82,7 +83,7 @@ namespace GraphicRenamer
 
                 for (int i = 0; i < gFilesArray.Count; i++)
                 {
-                    Endoscopy.moveFigures(gFilesArray[i].ToString());
+                    Endoscopy.moveFigures(gFilesArray[i].ToString(), this);
                     //●●●進行状況を別ウィンドウで表示する。
                 }
                 return;
@@ -121,7 +122,7 @@ namespace GraphicRenamer
                 if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
                 {
                     try
-                    { 
+                    {
                         File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
                         logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
                         logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
@@ -195,7 +196,7 @@ namespace GraphicRenamer
                         {
                             File.Move(gFilesArray[i].ToString(),
                               subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
-                            logFileName(Path.GetFileName(gFilesArray[i].ToString()), 
+                            logFileName(Path.GetFileName(gFilesArray[i].ToString()),
                                 tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
                         }
                         #region catch
@@ -423,7 +424,7 @@ namespace GraphicRenamer
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             { tbID.Text = ""; }
         }
 

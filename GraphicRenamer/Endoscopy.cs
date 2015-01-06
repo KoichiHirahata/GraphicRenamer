@@ -168,7 +168,7 @@ namespace GraphicRenamer
 
         public enum EndoResult { success, failed, error }
 
-        public static EndoResult moveFigures(string sourceDir)
+        public static EndoResult moveFigures(string sourceDir, Form ownerForm)
         {
             string serialNo;
             string patientID;
@@ -194,6 +194,7 @@ namespace GraphicRenamer
                         //Show dialog and display ID, date, name, time. User can change ID and examination date with the dialog.
                         #region set exam info
                         SetExamInfo sei = new SetExamInfo(patientID, dateStr, textArray[4].ToString(), textArray[1].ToString(), textArray[2].ToString());
+                        sei.Owner = ownerForm;
                         sei.ShowDialog();
                         if (sei.OkCancel == "Cancel")
                         { return EndoResult.failed; }
