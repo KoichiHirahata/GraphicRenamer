@@ -10,10 +10,11 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
+using System.Xml.Serialization;
 using System.Net;
 using System.Security.Cryptography;
 using Npgsql;
-
 
 namespace GraphicRenamer
 {
@@ -90,7 +91,7 @@ namespace GraphicRenamer
             if (tbDBpw.Visible)
             { Settings.DBconnectPw = tbDBpw.Text; }
 
-            if(cbUseSrv.Checked)
+            if (cbUseSrv.Checked)
             {
                 if (testConnect())
                 {
@@ -195,11 +196,6 @@ namespace GraphicRenamer
             }
 
             #region Npgsql
-            // ログ取得を有効にする。
-            /*NpgsqlEventLog.Level = LogLevel.Debug;
-            NpgsqlEventLog.LogName = "NpgsqlTests.LogFile";
-            NpgsqlEventLog.EchoMessages = true;
-            */
 
             NpgsqlConnection conn;
             try
@@ -243,7 +239,7 @@ namespace GraphicRenamer
         }
     }
 
-    #region File_control
+    #region Settings
     public class Settings
     {
         public static string imgDir { get; set; }
@@ -266,6 +262,15 @@ namespace GraphicRenamer
             //Settings.sslSetting = ""; //Use this when you want to connect without using SSL
             sslSetting = "SSL=true;SslMode=Require;"; //Use this when you want to connect using SSL
             ptInfoPlugin = checkPtInfoPlugin();
+
+            if (Settings.useDB)
+            {
+                if (!testConnect())
+                {
+                    MessageBox.Show(Properties.Resources.CouldntOpenConn, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Settings.useDB = false;
+                }
+            }
         }
 
         public static void saveSettings()
@@ -289,14 +294,11 @@ namespace GraphicRenamer
                 st.DBconnectPw = "";
             }
 
-            //Write to binary file
-            //Create a BinaryFormatter object
-            BinaryFormatter bf1 = new BinaryFormatter();
+            XmlSerializer xserializer = new XmlSerializer(typeof(Settings4file));
             //Open file
             System.IO.FileStream fs1 =
                 new System.IO.FileStream(Settings.settingFile_location, System.IO.FileMode.Create);
-            //Serialize and save to binary file
-            bf1.Serialize(fs1, st);
+            xserializer.Serialize(fs1, st);
             fs1.Close();
         }
 
@@ -307,14 +309,12 @@ namespace GraphicRenamer
             {
                 Settings4file st = new Settings4file();
 
-                //Read from binary file
-                //Make a BinaryFormatter object
-                BinaryFormatter bf2 = new BinaryFormatter();
+                XmlSerializer xserializer = new XmlSerializer(typeof(Settings4file));
                 System.IO.FileStream fs2 =
                     new System.IO.FileStream(Settings.settingFile_location, System.IO.FileMode.Open);
                 try
                 {
-                    st = (Settings4file)bf2.Deserialize(fs2);
+                    st = (Settings4file)xserializer.Deserialize(fs2);
                     fs2.Close();
                 }
                 catch (InvalidOperationException)
@@ -350,6 +350,50 @@ namespace GraphicRenamer
             else
             { return ""; }
         }
+
+        public static Boolean testConnect()
+        {
+            #region Npgsql
+            NpgsqlConnection conn;
+            try
+            {
+                conn = new NpgsqlConnection("Server=" + Settings.DBSrvIP + ";Port=" + Settings.DBSrvPort + ";User Id=" +
+                    Settings.DBconnectID + ";Password=" + Settings.DBconnectPw + ";Database=endoDB;" + Settings.sslSetting);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(Properties.Resources.WrongConnectingString, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            #endregion
+
+            try
+            { conn.Open(); }
+            catch (NpgsqlException)
+            {
+                MessageBox.Show(Properties.Resources.CouldntOpenConn, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn.Close();
+                return false;
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show(Properties.Resources.ConnClosed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn.Close();
+                return false;
+            }
+
+            if (conn.State == ConnectionState.Open)
+            {
+                conn.Close();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show(Properties.Resources.CouldntOpenConn, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn.Close();
+                return false;
+            }
+        }
     }
 
     [Serializable()]
@@ -363,7 +407,9 @@ namespace GraphicRenamer
         public string DBconnectID { get; set; } //ID of DB user
         public string DBconnectPw { get; set; } //Pw of DB user
     }
+    #endregion
 
+    #region FileControl
     public class file_control
     {
         public static void delFile(string fileName)

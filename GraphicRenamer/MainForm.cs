@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
+using Npgsql;
 
 namespace GraphicRenamer
 {
@@ -21,8 +22,8 @@ namespace GraphicRenamer
             //monthCalendar1.Font = new System.Drawing.Font(monthCalendar1.Font.Name, (float)11.25);
 
             pictureBox1.AllowDrop = true;
+            lbPtName.Text = "";
 
-            Settings.readSettings();
             Settings.initiateSettings();
 
             if (Settings.lang == "ja")
@@ -408,6 +409,64 @@ namespace GraphicRenamer
                 = new StreamWriter(Application.StartupPath + @"\log\" + System.DateTime.Today.ToString("yyyy") + @"\" + System.DateTime.Today.ToString("yyyyMMdd") + ".log", true);
             sw.WriteLine(sourceFileName + " -> " + destFileName);
             sw.Close();
+        }
+        #endregion
+
+        #region ReadPatientData
+        private void tbID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Settings.useDB)
+            { readPtData(tbID.Text); }
+        }
+
+        public void readPtData(string patientID)
+        {
+            #region Npgsql
+            NpgsqlConnection conn;
+            try
+            {
+                conn = new NpgsqlConnection("Server=" + Settings.DBSrvIP + ";Port=" + Settings.DBSrvPort + ";User Id=" +
+                    Settings.DBconnectID + ";Password=" + Settings.DBconnectPw + ";Database=endoDB;" + Settings.sslSetting);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(Properties.Resources.WrongConnectingString, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            { conn.Open(); }
+            catch (NpgsqlException)
+            {
+                MessageBox.Show(Properties.Resources.CouldntOpenConn, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn.Close();
+                return;
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show(Properties.Resources.ConnClosed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn.Close();
+                return;
+            }
+            #endregion
+
+            string sql = "SELECT * FROM patient WHERE pt_id='" + patientID + "'";
+
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count == 0)
+            {
+                conn.Close();
+                lbPtName.Text = "No data";
+                return;
+            }
+            else
+            {
+                DataRow row = dt.Rows[0];
+                lbPtName.Text = row["pt_name"].ToString();
+                conn.Close();
+            }
         }
         #endregion
 

@@ -40,6 +40,8 @@
             this.lbEndTime = new System.Windows.Forms.Label();
             this.btCancel = new System.Windows.Forms.Button();
             this.btOK = new System.Windows.Forms.Button();
+            this.lbPtNameDB = new System.Windows.Forms.Label();
+            this.lbNameDbCaption = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // monthCalendar1
@@ -52,6 +54,7 @@
             resources.ApplyResources(this.tbPtId, "tbPtId");
             this.tbPtId.Name = "tbPtId";
             this.tbPtId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPtId_KeyDown);
+            this.tbPtId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbPtId_KeyUp);
             // 
             // label1
             // 
@@ -102,10 +105,22 @@
             this.btOK.UseVisualStyleBackColor = true;
             this.btOK.Click += new System.EventHandler(this.btOK_Click);
             // 
+            // lbPtNameDB
+            // 
+            resources.ApplyResources(this.lbPtNameDB, "lbPtNameDB");
+            this.lbPtNameDB.Name = "lbPtNameDB";
+            // 
+            // lbNameDbCaption
+            // 
+            resources.ApplyResources(this.lbNameDbCaption, "lbNameDbCaption");
+            this.lbNameDbCaption.Name = "lbNameDbCaption";
+            // 
             // SetExamInfo
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbPtNameDB);
+            this.Controls.Add(this.lbNameDbCaption);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btOK);
             this.Controls.Add(this.lbEndTime);
@@ -140,5 +155,7 @@
         private System.Windows.Forms.Label lbEndTime;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Button btOK;
+        private System.Windows.Forms.Label lbPtNameDB;
+        private System.Windows.Forms.Label lbNameDbCaption;
     }
 }

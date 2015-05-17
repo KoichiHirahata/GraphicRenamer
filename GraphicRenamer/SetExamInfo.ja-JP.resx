@@ -139,6 +139,12 @@
   <data name="btCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="lbNameDbCaption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 16</value>
+  </data>
+  <data name="lbNameDbCaption.Text" xml:space="preserve">
+    <value>氏名(DB)：</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>検査情報設定</value>
   </data>
