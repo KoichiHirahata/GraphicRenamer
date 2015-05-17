@@ -129,7 +129,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tbSaveDir.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;tbSaveDir.Name" xml:space="preserve">
     <value>tbSaveDir</value>
@@ -141,7 +141,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbSaveDir.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>12</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -157,13 +157,13 @@
     <value>20, 26</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 16</value>
+    <value>184, 16</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Please set graphic folder.</value>
+    <value>Please set graphics folder.</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -175,7 +175,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>13</value>
   </data>
   <data name="btCancel.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -184,13 +184,13 @@
     <value>NoControl</value>
   </data>
   <data name="btCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 128</value>
+    <value>370, 454</value>
   </data>
   <data name="btCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 31</value>
   </data>
   <data name="btCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>9</value>
   </data>
   <data name="btCancel.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btCancel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>14</value>
   </data>
   <data name="btSave.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -214,13 +214,13 @@
     <value>NoControl</value>
   </data>
   <data name="btSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>253, 128</value>
+    <value>264, 454</value>
   </data>
   <data name="btSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 31</value>
   </data>
   <data name="btSave.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>8</value>
   </data>
   <data name="btSave.Text" xml:space="preserve">
     <value>Save</value>
@@ -235,7 +235,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btSave.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>15</value>
   </data>
   <data name="sansho_Bt.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -250,7 +250,7 @@
     <value>73, 24</value>
   </data>
   <data name="sansho_Bt.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>1</value>
   </data>
   <data name="sansho_Bt.Text" xml:space="preserve">
     <value>Browse</value>
@@ -265,7 +265,364 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;sansho_Bt.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="tbDBsrvPort.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbDBsrvPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 257</value>
+  </data>
+  <data name="tbDBsrvPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 23</value>
+  </data>
+  <data name="tbDBsrvPort.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tbDBsrvPort.Name" xml:space="preserve">
+    <value>tbDBsrvPort</value>
+  </data>
+  <data name="&gt;&gt;tbDBsrvPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDBsrvPort.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbDBsrvPort.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbDBsrvPort.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbDBsrvPort.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbDBsrvPort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbDBsrvPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 260</value>
+  </data>
+  <data name="lbDBsrvPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 16</value>
+  </data>
+  <data name="lbDBsrvPort.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="lbDBsrvPort.Text" xml:space="preserve">
+    <value>Database server port:</value>
+  </data>
+  <data name="&gt;&gt;lbDBsrvPort.Name" xml:space="preserve">
+    <value>lbDBsrvPort</value>
+  </data>
+  <data name="&gt;&gt;lbDBsrvPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbDBsrvPort.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbDBsrvPort.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbDbID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbDbID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 307</value>
+  </data>
+  <data name="tbDbID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 23</value>
+  </data>
+  <data name="tbDbID.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;tbDbID.Name" xml:space="preserve">
+    <value>tbDbID</value>
+  </data>
+  <data name="&gt;&gt;tbDbID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDbID.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbDbID.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbDbID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbDbID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbDbID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbDbID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 310</value>
+  </data>
+  <data name="lbDbID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 16</value>
+  </data>
+  <data name="lbDbID.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="lbDbID.Text" xml:space="preserve">
+    <value>Database ID:</value>
+  </data>
+  <data name="&gt;&gt;lbDbID.Name" xml:space="preserve">
+    <value>lbDbID</value>
+  </data>
+  <data name="&gt;&gt;lbDbID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbDbID.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbDbID.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btTestConnect.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="btTestConnect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btTestConnect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>375, 381</value>
+  </data>
+  <data name="btTestConnect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 31</value>
+  </data>
+  <data name="btTestConnect.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="btTestConnect.Text" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="&gt;&gt;btTestConnect.Name" xml:space="preserve">
+    <value>btTestConnect</value>
+  </data>
+  <data name="&gt;&gt;btTestConnect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btTestConnect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btTestConnect.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btPwSet.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="btPwSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btPwSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 381</value>
+  </data>
+  <data name="btPwSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 31</value>
+  </data>
+  <data name="btPwSet.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="btPwSet.Text" xml:space="preserve">
+    <value>Renew password</value>
+  </data>
+  <data name="&gt;&gt;btPwSet.Name" xml:space="preserve">
+    <value>btPwSet</value>
+  </data>
+  <data name="&gt;&gt;btPwSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPwSet.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btPwSet.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tbDBpw.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbDBpw.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 385</value>
+  </data>
+  <data name="tbDBpw.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="tbDBpw.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 23</value>
+  </data>
+  <data name="tbDBpw.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tbDBpw.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Name" xml:space="preserve">
+    <value>tbDBpw</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="pwState.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="pwState.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="pwState.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pwState.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 348</value>
+  </data>
+  <data name="pwState.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 16</value>
+  </data>
+  <data name="pwState.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="pwState.Text" xml:space="preserve">
+    <value>Database password:</value>
+  </data>
+  <data name="&gt;&gt;pwState.Name" xml:space="preserve">
+    <value>pwState</value>
+  </data>
+  <data name="&gt;&gt;pwState.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pwState.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pwState.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="lbSrvSample.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbSrvSample.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbSrvSample.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbSrvSample.Location" type="System.Drawing.Point, System.Drawing">
+    <value>236, 212</value>
+  </data>
+  <data name="lbSrvSample.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 16</value>
+  </data>
+  <data name="lbSrvSample.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="lbSrvSample.Text" xml:space="preserve">
+    <value>e.x. 192.168.1.10</value>
+  </data>
+  <data name="&gt;&gt;lbSrvSample.Name" xml:space="preserve">
+    <value>lbSrvSample</value>
+  </data>
+  <data name="&gt;&gt;lbSrvSample.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbSrvSample.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbSrvSample.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="lbDBSrv.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbDBSrv.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbDBSrv.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbDBSrv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 189</value>
+  </data>
+  <data name="lbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 16</value>
+  </data>
+  <data name="lbDBSrv.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="lbDBSrv.Text" xml:space="preserve">
+    <value>Database server IP address:</value>
+  </data>
+  <data name="&gt;&gt;lbDBSrv.Name" xml:space="preserve">
+    <value>lbDBSrv</value>
+  </data>
+  <data name="&gt;&gt;lbDBSrv.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbDBSrv.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbDBSrv.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="tbDBSrv.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbDBSrv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 186</value>
+  </data>
+  <data name="tbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 23</value>
+  </data>
+  <data name="tbDBSrv.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tbDBSrv.Name" xml:space="preserve">
+    <value>tbDBSrv</value>
+  </data>
+  <data name="&gt;&gt;tbDBSrv.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDBSrv.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbDBSrv.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="cbUseSrv.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUseSrv.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="cbUseSrv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 124</value>
+  </data>
+  <data name="cbUseSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 20</value>
+  </data>
+  <data name="cbUseSrv.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="cbUseSrv.Text" xml:space="preserve">
+    <value>Use database server of Findings Editor</value>
+  </data>
+  <data name="&gt;&gt;cbUseSrv.Name" xml:space="preserve">
+    <value>cbUseSrv</value>
+  </data>
+  <data name="&gt;&gt;cbUseSrv.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUseSrv.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cbUseSrv.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -274,7 +631,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>477, 186</value>
+    <value>477, 505</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>

@@ -123,6 +123,18 @@
   <data name="CantPrintAnyMore" xml:space="preserve">
     <value>これ以上印刷できません。</value>
   </data>
+  <data name="ConnClosed" xml:space="preserve">
+    <value>転送接続からデータを読み取れません: 既存の接続はリモート ホストに強制的に切断されました。</value>
+  </data>
+  <data name="ConnectSuccess" xml:space="preserve">
+    <value>接続に成功しました。</value>
+  </data>
+  <data name="CouldntEstablishConn" xml:space="preserve">
+    <value>接続に失敗しました。コネクションがオープンできませんでした。</value>
+  </data>
+  <data name="CouldntOpenConn" xml:space="preserve">
+    <value>接続に失敗しました。コネクションがオープンできませんでした。</value>
+  </data>
   <data name="DontDropFolderFiles" xml:space="preserve">
     <value>フォルダーとファイルを同時にドロップしないでください。</value>
   </data>
@@ -168,8 +180,17 @@
   <data name="PermissionDenied" xml:space="preserve">
     <value>権限がありません。</value>
   </data>
+  <data name="portUnconfigured" xml:space="preserve">
+    <value>サーバーのポートが設定されていません。</value>
+  </data>
+  <data name="pwUnconfigured" xml:space="preserve">
+    <value>データベースパスワード：未設定</value>
+  </data>
   <data name="SerialNoOver999" xml:space="preserve">
     <value>通し番号が上限（999）に達しました。</value>
+  </data>
+  <data name="ServerIP" xml:space="preserve">
+    <value>サーバーのIPが設定されていません。</value>
   </data>
   <data name="SettingFileBroken" xml:space="preserve">
     <value>設定ファイルが壊れている可能性があります。設定ファイルを削除しますか？</value>
@@ -182,6 +203,9 @@
   </data>
   <data name="UpperLimitIs8" xml:space="preserve">
     <value>印刷は8枚までです。</value>
+  </data>
+  <data name="WrongConnectingString" xml:space="preserve">
+    <value>不正な接続文字列です。</value>
   </data>
   <data name="WrongText" xml:space="preserve">
     <value>文字列が不正です。</value>

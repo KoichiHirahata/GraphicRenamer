@@ -17,15 +17,15 @@ namespace GraphicRenamer
         public MainForm()
         {
             InitializeComponent();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;//これで2診が大丈夫かチェック。
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             //monthCalendar1.Font = new System.Drawing.Font(monthCalendar1.Font.Name, (float)11.25);
 
             pictureBox1.AllowDrop = true;
 
             Settings.readSettings();
-            Settings.isJP = (Application.CurrentCulture.TwoLetterISOLanguageName == "ja");
+            Settings.initiateSettings();
 
-            if (Settings.isJP)
+            if (Settings.lang == "ja")
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\jp.png"); }
             else
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\eng.png"); }
@@ -42,8 +42,8 @@ namespace GraphicRenamer
 
         private void pictureBox1_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) //ドラッグされている内容がファイル、フォルダの場合
-            { e.Effect = DragDropEffects.Copy; }　//コピーを許可するようにドラッグ元に通知する
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) //When draged objects are files or folders,
+            { e.Effect = DragDropEffects.Copy; }　//indicate that they can be dragged.
             else
             { e.Effect = DragDropEffects.None; }
         }
@@ -69,7 +69,7 @@ namespace GraphicRenamer
             { return; }
             #endregion
 
-            //gFilesを配列からArrayListに変換してソート。
+            //Convert gFiles from array to ArrayList, then sort it
             ArrayList gFilesArray = new ArrayList();
             gFilesArray.AddRange(gFiles);
             gFilesArray.Sort();

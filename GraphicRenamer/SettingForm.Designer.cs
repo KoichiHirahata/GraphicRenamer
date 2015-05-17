@@ -34,6 +34,18 @@
             this.btCancel = new System.Windows.Forms.Button();
             this.btSave = new System.Windows.Forms.Button();
             this.sansho_Bt = new System.Windows.Forms.Button();
+            this.tbDBsrvPort = new System.Windows.Forms.TextBox();
+            this.lbDBsrvPort = new System.Windows.Forms.Label();
+            this.tbDbID = new System.Windows.Forms.TextBox();
+            this.lbDbID = new System.Windows.Forms.Label();
+            this.btTestConnect = new System.Windows.Forms.Button();
+            this.btPwSet = new System.Windows.Forms.Button();
+            this.tbDBpw = new System.Windows.Forms.TextBox();
+            this.pwState = new System.Windows.Forms.Label();
+            this.lbSrvSample = new System.Windows.Forms.Label();
+            this.lbDBSrv = new System.Windows.Forms.Label();
+            this.tbDBSrv = new System.Windows.Forms.TextBox();
+            this.cbUseSrv = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tbSaveDir
@@ -68,10 +80,88 @@
             this.sansho_Bt.UseVisualStyleBackColor = true;
             this.sansho_Bt.Click += new System.EventHandler(this.sansho_Bt_Click);
             // 
+            // tbDBsrvPort
+            // 
+            resources.ApplyResources(this.tbDBsrvPort, "tbDBsrvPort");
+            this.tbDBsrvPort.Name = "tbDBsrvPort";
+            // 
+            // lbDBsrvPort
+            // 
+            resources.ApplyResources(this.lbDBsrvPort, "lbDBsrvPort");
+            this.lbDBsrvPort.Name = "lbDBsrvPort";
+            // 
+            // tbDbID
+            // 
+            resources.ApplyResources(this.tbDbID, "tbDbID");
+            this.tbDbID.Name = "tbDbID";
+            // 
+            // lbDbID
+            // 
+            resources.ApplyResources(this.lbDbID, "lbDbID");
+            this.lbDbID.Name = "lbDbID";
+            // 
+            // btTestConnect
+            // 
+            resources.ApplyResources(this.btTestConnect, "btTestConnect");
+            this.btTestConnect.Name = "btTestConnect";
+            this.btTestConnect.UseVisualStyleBackColor = true;
+            this.btTestConnect.Click += new System.EventHandler(this.btTestConnect_Click);
+            // 
+            // btPwSet
+            // 
+            resources.ApplyResources(this.btPwSet, "btPwSet");
+            this.btPwSet.Name = "btPwSet";
+            this.btPwSet.UseVisualStyleBackColor = true;
+            this.btPwSet.Click += new System.EventHandler(this.btPwSet_Click);
+            // 
+            // tbDBpw
+            // 
+            resources.ApplyResources(this.tbDBpw, "tbDBpw");
+            this.tbDBpw.Name = "tbDBpw";
+            // 
+            // pwState
+            // 
+            resources.ApplyResources(this.pwState, "pwState");
+            this.pwState.Name = "pwState";
+            // 
+            // lbSrvSample
+            // 
+            resources.ApplyResources(this.lbSrvSample, "lbSrvSample");
+            this.lbSrvSample.Name = "lbSrvSample";
+            // 
+            // lbDBSrv
+            // 
+            resources.ApplyResources(this.lbDBSrv, "lbDBSrv");
+            this.lbDBSrv.Name = "lbDBSrv";
+            // 
+            // tbDBSrv
+            // 
+            resources.ApplyResources(this.tbDBSrv, "tbDBSrv");
+            this.tbDBSrv.Name = "tbDBSrv";
+            // 
+            // cbUseSrv
+            // 
+            resources.ApplyResources(this.cbUseSrv, "cbUseSrv");
+            this.cbUseSrv.Name = "cbUseSrv";
+            this.cbUseSrv.UseVisualStyleBackColor = true;
+            this.cbUseSrv.CheckedChanged += new System.EventHandler(this.cbUseSrv_CheckedChanged);
+            // 
             // SettingForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbUseSrv);
+            this.Controls.Add(this.tbDBsrvPort);
+            this.Controls.Add(this.lbDBsrvPort);
+            this.Controls.Add(this.tbDbID);
+            this.Controls.Add(this.lbDbID);
+            this.Controls.Add(this.btTestConnect);
+            this.Controls.Add(this.btPwSet);
+            this.Controls.Add(this.tbDBpw);
+            this.Controls.Add(this.pwState);
+            this.Controls.Add(this.lbSrvSample);
+            this.Controls.Add(this.lbDBSrv);
+            this.Controls.Add(this.tbDBSrv);
             this.Controls.Add(this.tbSaveDir);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btCancel);
@@ -94,5 +184,17 @@
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button sansho_Bt;
+        private System.Windows.Forms.TextBox tbDBsrvPort;
+        private System.Windows.Forms.Label lbDBsrvPort;
+        private System.Windows.Forms.TextBox tbDbID;
+        private System.Windows.Forms.Label lbDbID;
+        private System.Windows.Forms.Button btTestConnect;
+        private System.Windows.Forms.Button btPwSet;
+        private System.Windows.Forms.TextBox tbDBpw;
+        private System.Windows.Forms.Label pwState;
+        private System.Windows.Forms.Label lbSrvSample;
+        private System.Windows.Forms.Label lbDBSrv;
+        private System.Windows.Forms.TextBox tbDBSrv;
+        private System.Windows.Forms.CheckBox cbUseSrv;
     }
 }

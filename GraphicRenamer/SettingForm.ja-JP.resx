@@ -133,6 +133,54 @@
   <data name="sansho_Bt.Text" xml:space="preserve">
     <value>参照</value>
   </data>
+  <data name="lbDBsrvPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 16</value>
+  </data>
+  <data name="lbDBsrvPort.Text" xml:space="preserve">
+    <value>データベースポート番号：</value>
+  </data>
+  <data name="lbDbID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 16</value>
+  </data>
+  <data name="lbDbID.Text" xml:space="preserve">
+    <value>データベースID：</value>
+  </data>
+  <data name="btTestConnect.Text" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="btPwSet.Text" xml:space="preserve">
+    <value>パスワード変更</value>
+  </data>
+  <data name="pwState.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 16</value>
+  </data>
+  <data name="pwState.Text" xml:space="preserve">
+    <value>データベースパスワード：</value>
+  </data>
+  <data name="lbSrvSample.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 16</value>
+  </data>
+  <data name="lbSrvSample.Text" xml:space="preserve">
+    <value>例：192.168.1.10</value>
+  </data>
+  <data name="lbDBSrv.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 16</value>
+  </data>
+  <data name="lbDBSrv.Text" xml:space="preserve">
+    <value>データベースサーバーのIPアドレス</value>
+  </data>
+  <data name="cbUseSrv.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="cbUseSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 20</value>
+  </data>
+  <data name="cbUseSrv.Text" xml:space="preserve">
+    <value>Findings Editorのデータベースを使用する</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>設定</value>
   </data>

@@ -123,6 +123,18 @@
   <data name="CantPrintAnyMore" xml:space="preserve">
     <value>Can't print any more.</value>
   </data>
+  <data name="ConnClosed" xml:space="preserve">
+    <value>Connection closed by server.</value>
+  </data>
+  <data name="ConnectSuccess" xml:space="preserve">
+    <value>Connection successful.</value>
+  </data>
+  <data name="CouldntEstablishConn" xml:space="preserve">
+    <value>Could not establish connection.</value>
+  </data>
+  <data name="CouldntOpenConn" xml:space="preserve">
+    <value>Could not establish connection.</value>
+  </data>
   <data name="DontDropFolderFiles" xml:space="preserve">
     <value>Don't drop folders and files at same time.</value>
   </data>
@@ -154,7 +166,7 @@
     <value>Initial setting</value>
   </data>
   <data name="NoID" xml:space="preserve">
-    <value>ID is needed.</value>
+    <value>ID required.</value>
   </data>
   <data name="NormalMode" xml:space="preserve">
     <value>Back to normal mode.</value>
@@ -168,8 +180,17 @@
   <data name="PermissionDenied" xml:space="preserve">
     <value>Permission denied.</value>
   </data>
+  <data name="portUnconfigured" xml:space="preserve">
+    <value>Server port has not been configured.</value>
+  </data>
+  <data name="pwUnconfigured" xml:space="preserve">
+    <value>Server password has not been configured.</value>
+  </data>
   <data name="SerialNoOver999" xml:space="preserve">
     <value>Serial number had reached upper limit (999).</value>
+  </data>
+  <data name="ServerIP" xml:space="preserve">
+    <value>Server IP has not been configured.</value>
   </data>
   <data name="SettingFileBroken" xml:space="preserve">
     <value>The setting file may be corrupt. Do you want to delete setting file?</value>
@@ -182,6 +203,9 @@
   </data>
   <data name="UpperLimitIs8" xml:space="preserve">
     <value>You can check until 8 pieces.</value>
+  </data>
+  <data name="WrongConnectingString" xml:space="preserve">
+    <value>Connection string is wrong.</value>
   </data>
   <data name="WrongText" xml:space="preserve">
     <value>Wrong text.</value>
