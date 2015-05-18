@@ -31,6 +31,7 @@ namespace GraphicRenamer
                 lbNameDbCaption.Visible = true;
                 lbPtNameDB.Text = "";
                 lbPtNameDB.Visible = true;
+                readPtData(ptID);
             }
             else
             {
