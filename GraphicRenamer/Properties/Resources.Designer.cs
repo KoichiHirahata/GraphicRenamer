@@ -151,6 +151,15 @@ namespace GraphicRenamer.Properties {
         }
         
         /// <summary>
+        ///   Failed to remove. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string FailedToRemove {
+            get {
+                return ResourceManager.GetString("FailedToRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The file is being used. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string FileBeingUsed {

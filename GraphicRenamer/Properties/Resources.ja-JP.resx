@@ -210,4 +210,7 @@
   <data name="WrongText" xml:space="preserve">
     <value>文字列が不正です。</value>
   </data>
+  <data name="FailedToRemove" xml:space="preserve">
+    <value>削除に失敗しました。</value>
+  </data>
 </root>

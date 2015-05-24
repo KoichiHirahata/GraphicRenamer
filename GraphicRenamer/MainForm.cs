@@ -380,22 +380,12 @@ namespace GraphicRenamer
 
         #region Functions for logging
         public static void logTitle(string sourceDir, string moveTo)
-        {
-            #region Create directory
-            if (!Directory.Exists(Application.StartupPath + @"\log"))
-            { createFolder(Application.StartupPath + @"\log"); }
-
-            if (!Directory.Exists(Application.StartupPath + @"\log\" + System.DateTime.Today.ToString("yyyy")))
-            { createFolder(Application.StartupPath + @"\log\" + System.DateTime.Today.ToString("yyyy")); }
-            #endregion
-
-            StreamWriter sw
-                = new StreamWriter(Application.StartupPath + @"\log\" + System.DateTime.Today.ToString("yyyy") + @"\" + System.DateTime.Today.ToString("yyyyMMdd") + ".log", true);
-            sw.WriteLine("[" + System.DateTime.Now.ToString() + "] From:" + sourceDir + " To:" + moveTo);
-            sw.Close();
-        }
+        { logSomething("[" + System.DateTime.Now.ToString() + "] From:" + sourceDir + " To:" + moveTo); }
 
         public static void logFileName(string sourceFileName, string destFileName)
+        { logSomething(sourceFileName + " -> " + destFileName); }
+
+        public static void logSomething(string str)
         {
             #region Create directory
             if (!Directory.Exists(Application.StartupPath + @"\log"))
@@ -407,7 +397,7 @@ namespace GraphicRenamer
 
             StreamWriter sw
                 = new StreamWriter(Application.StartupPath + @"\log\" + System.DateTime.Today.ToString("yyyy") + @"\" + System.DateTime.Today.ToString("yyyyMMdd") + ".log", true);
-            sw.WriteLine(sourceFileName + " -> " + destFileName);
+            sw.WriteLine(str);
             sw.Close();
         }
         #endregion

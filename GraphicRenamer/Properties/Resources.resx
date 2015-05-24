@@ -210,4 +210,7 @@
   <data name="WrongText" xml:space="preserve">
     <value>Wrong text.</value>
   </data>
+  <data name="FailedToRemove" xml:space="preserve">
+    <value>Failed to remove.</value>
+  </data>
 </root>

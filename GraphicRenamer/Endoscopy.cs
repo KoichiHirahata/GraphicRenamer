@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace GraphicRenamer
 {
-    class Endoscopy
+    public class Endoscopy
     {
         public static string determinFolderType(string folderPath)
         {
@@ -46,7 +46,7 @@ namespace GraphicRenamer
                 }
                 #endregion
             }
-            else
+            else if (Directory.GetFiles(folderPath, "*.inf", SearchOption.TopDirectoryOnly).Length > 0)
             {
                 string[] infs = Directory.GetFiles(folderPath, "*.inf");
 
@@ -81,14 +81,21 @@ namespace GraphicRenamer
                     #endregion
                 }
             }
+            else if (Directory.Exists(folderPath + "\\DCIM") && Directory.Exists(folderPath + "\\CV\\STUDY"))
+            {
+                if (Directory.GetDirectories(folderPath + "\\DCIM", "*", SearchOption.TopDirectoryOnly).Length > 0)
+                { return "OLYMPUS"; }
+            }
+            else if (File.Exists(folderPath + "\\ExamInfo.xml") && Directory.GetFiles(folderPath, "*.jpg", SearchOption.TopDirectoryOnly).Length > 0)
+            { return "MovedOLYMPUS"; }
 
             return ret;
         }
 
-        /// <summary>patient.infから患者情報を取る関数。</summary>
+        /// <summary>Function to get patient information from patient.inf (For FUJIFILM system)</summary>
         /// <param name="filePath">Path of file</param>
         /// <returns>Array of examination date, start time, end time, patient ID, patient name.</returns>
-        public static string[] getPtInfo(string filePath) //
+        public static string[] getPtInfoFujifilm(string filePath) //
         {
             #region ret initiate
             string[] ret = new string[5];
@@ -166,7 +173,38 @@ namespace GraphicRenamer
             return ret;
         }
 
-        public enum EndoResult { success, failed, error }
+        /// <summary>Function to get information from ExamInfo.xml (For OLYMPUS system)</summary>
+        /// <param name="filePath">Path of file</param>
+        /// <returns>Array of examination date, start time, end time, patient ID, patient name.</returns>
+        public static string[] getPtInfoOlympus(string filePath) //
+        {
+            #region ret initiate
+            string[] ret = new string[5];
+            for (int i = 0; i < 5; i++)
+            { ret[i] = ""; }
+            #endregion
+
+            string text = "";
+            #region Read from file
+            try
+            {
+                using (StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("utf-8")))
+                { text = sr.ReadToEnd(); }
+            }
+            catch (Exception e)
+            { MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            #endregion
+
+            ret[0] = getValueOfTag(text, "date");
+            ret[1] = ""; //start time
+            ret[2] = ""; //end time
+            ret[3] = getValueOfTag(text, "idno");
+            ret[4] = getValueOfTag(text, "name");
+            return ret;
+        }
+
+
+        public enum EndoResult { success, failed, error, fileExist }
 
         public static EndoResult moveFigures(string sourceDir, Form ownerForm)
         {
@@ -174,9 +212,11 @@ namespace GraphicRenamer
             string patientID;
             string dateStr;
             string destDir;//ファイルの移動先
-            string[] textArray = new string[5];
-            string[] jpgFiles;
-            ArrayList jpgArray = new ArrayList();
+            string[] testInfoArray = new string[5];
+            string[] graphicFiles;
+            ArrayList graphicArray = new ArrayList();
+
+            string[] tempArray;
 
             switch (Endoscopy.determinFolderType(sourceDir))
             {
@@ -187,40 +227,23 @@ namespace GraphicRenamer
 
                     if (File.Exists(infs[0]))
                     {
-                        textArray = Endoscopy.getPtInfo(infs[0]);
-                        patientID = textArray[3].ToString();
-                        dateStr = textArray[0].ToString();
-
-                        //Show dialog and display ID, date, name, time. User can change ID and examination date with the dialog.
-                        #region set exam info
-                        SetExamInfo sei = new SetExamInfo(patientID, dateStr, textArray[4].ToString(), textArray[1].ToString(), textArray[2].ToString());
-                        sei.Owner = ownerForm;
-                        sei.ShowDialog();
-                        if (sei.OkCancel == "Cancel")
+                        testInfoArray = Endoscopy.getPtInfoFujifilm(infs[0]);
+                        patientID = testInfoArray[3].ToString();
+                        dateStr = testInfoArray[0].ToString().Replace("/", "");
+                        tempArray = prepareToMove(testInfoArray, ownerForm);
+                        if (tempArray[0] == "")
                         { return EndoResult.failed; }
-                        patientID = sei.patientId;
-                        dateStr = sei.examinationDate;//Delete "/" with this code.
-                        sei.Dispose();
-                        #endregion
 
-                        MainForm.createFolder(Settings.imgDir + @"\" + patientID);
+                        destDir = tempArray[0];
+                        serialNo = tempArray[1];
 
-                        serialNo = MainForm.getSerialNo(Settings.imgDir + @"\" + patientID, patientID, dateStr);
-                        if (serialNo == "error")
-                        {
-                            MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return EndoResult.failed;
-                        }
-                        MainForm.createFolder(Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo);
-                        destDir = Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo;
-
-                        jpgFiles = Directory.GetFiles(sourceDir, "*.JPG", SearchOption.TopDirectoryOnly);
-                        jpgArray.AddRange(jpgFiles);
-                        jpgArray.Sort();
+                        graphicFiles = Directory.GetFiles(sourceDir, "*.JPG", SearchOption.TopDirectoryOnly);
+                        graphicArray.AddRange(graphicFiles);
+                        graphicArray.Sort();
                         string tempFilePath;//ファイル移動用
 
                         MainForm.logTitle(sourceDir, destDir);
-                        for (int i = 0; i < jpgArray.Count; i++)
+                        for (int i = 0; i < graphicArray.Count; i++)
                         {
                             #region Error check
                             if (MainForm.plusZero((i + 1).ToString(), 3) == "Error")
@@ -234,13 +257,15 @@ namespace GraphicRenamer
 
                             try
                             {
-                                File.Move(jpgArray[i].ToString(), tempFilePath + ".jpg");
-                                MainForm.logFileName(Path.GetFileName(jpgArray[i].ToString()), Path.GetFileName(tempFilePath + ".jpg"));
+                                File.Move(graphicArray[i].ToString(), tempFilePath + ".jpg");
+                                MainForm.logFileName(Path.GetFileName(graphicArray[i].ToString()), Path.GetFileName(tempFilePath + ".jpg"));
                             }
                             #region catch
                             catch (IOException)
                             {
-                                MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MainForm.logSomething("[IO Exception]" + graphicArray[i].ToString() + " to " + tempFilePath + ".jpg");
+                                MessageBox.Show("[" + graphicArray[i].ToString() + " to " + tempFilePath + ".jpg]\r\n"
+                                    + "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return EndoResult.error;
                             }
                             catch (UnauthorizedAccessException)
@@ -256,12 +281,12 @@ namespace GraphicRenamer
                             #endregion
 
                             #region Move thu files
-                            if (File.Exists(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "thu"))
+                            if (File.Exists(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "thu"))
                             {
                                 try //Convert thu to tiff and move
                                 {
-                                    File.Move(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "thu", tempFilePath + ".tiff");
-                                    MainForm.logFileName(Path.GetFileName(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "thu"),
+                                    File.Move(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "thu", tempFilePath + ".tiff");
+                                    MainForm.logFileName(Path.GetFileName(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "thu"),
                                         Path.GetFileName(tempFilePath + ".tiff"));
                                 }
                                 #region catch
@@ -285,12 +310,12 @@ namespace GraphicRenamer
                             #endregion
 
                             #region Move tiff files
-                            if (File.Exists(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "tiff"))
+                            if (File.Exists(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "tiff"))
                             {
                                 try
                                 {
-                                    File.Move(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "tiff", tempFilePath + ".tiff");
-                                    MainForm.logFileName(Path.GetFileName(jpgArray[i].ToString().Substring(0, jpgArray[i].ToString().Length - 3) + "tiff"),
+                                    File.Move(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "tiff", tempFilePath + ".tiff");
+                                    MainForm.logFileName(Path.GetFileName(graphicArray[i].ToString().Substring(0, graphicArray[i].ToString().Length - 3) + "tiff"),
                                         Path.GetFileName(tempFilePath + ".tiff"));
                                 }
                                 #region catch
@@ -314,12 +339,12 @@ namespace GraphicRenamer
                             #endregion
 
                             #region Move TIF files(For VP-4400)
-                            string TIF_filename = "s" + Path.GetFileName(jpgArray[i].ToString()).Substring(0, Path.GetFileName(jpgArray[i].ToString()).Length - 3) + "TIF";
-                            if (File.Exists(Path.GetDirectoryName(jpgArray[i].ToString()) + "\\" + TIF_filename))
+                            string TIF_filename = "s" + Path.GetFileName(graphicArray[i].ToString()).Substring(0, Path.GetFileName(graphicArray[i].ToString()).Length - 3) + "TIF";
+                            if (File.Exists(Path.GetDirectoryName(graphicArray[i].ToString()) + "\\" + TIF_filename))
                             {
                                 try
                                 {
-                                    File.Move(Path.GetDirectoryName(jpgArray[i].ToString()) + "\\" + TIF_filename, tempFilePath + ".tiff");
+                                    File.Move(Path.GetDirectoryName(graphicArray[i].ToString()) + "\\" + TIF_filename, tempFilePath + ".tiff");
                                     MainForm.logFileName(TIF_filename, Path.GetFileName(tempFilePath + ".tiff"));
                                 }
                                 #region catch
@@ -372,23 +397,331 @@ namespace GraphicRenamer
                         }
                         #endregion
 
-                        #region Delete sourceDir
-                        //Delete source folder after checking that empty.
-                        if (Directory.GetFiles(sourceDir, "*").Length == 0)
+                        if (deleteDir(sourceDir) == EndoResult.error)
+                        { return EndoResult.error; }
+
+                        return EndoResult.success;
+                    }
+                    break;
+                #endregion
+
+                #region OLYMPUS
+                case "OLYMPUS":
+                    string[] dirs = Directory.GetDirectories(sourceDir + @"\CV\STUDY", "*", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < dirs.Length; i++)
+                    {
+                        testInfoArray = getPtInfoOlympus(dirs[i] + "\\ExamInfo.xml");
+                        patientID = testInfoArray[3].ToString();
+                        dateStr = testInfoArray[0].ToString().Replace("/", "");
+                        tempArray = prepareToMove(testInfoArray, ownerForm);
+
+                        if (tempArray[0] != "")
                         {
+                            destDir = tempArray[0];
+                            serialNo = tempArray[1];
+
+                            #region Move jpg files
+                            try { graphicFiles = Directory.GetFiles(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), "*.jpg", SearchOption.TopDirectoryOnly); }
+                            #region catch
+                            catch (DirectoryNotFoundException)
+                            {
+                                MessageBox.Show("[" + sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]) + "]" + Properties.Resources.FolderNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
+
+                            graphicArray.Clear();
+                            graphicArray.AddRange(graphicFiles);
+                            graphicArray.Sort();
+                            string tempFilePath;//ファイル移動用
+
+                            MainForm.logTitle(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), destDir);
+                            for (int j = 0; j < graphicArray.Count; j++)
+                            {
+                                #region Error check
+                                if (MainForm.plusZero((j + 1).ToString(), 3) == "Error")
+                                {
+                                    MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                #endregion
+
+                                tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
+
+                                try
+                                {
+                                    File.Move(graphicArray[j].ToString(), tempFilePath + ".jpg");
+                                    MainForm.logFileName(Path.GetFileName(graphicArray[j].ToString()), Path.GetFileName(tempFilePath + ".jpg"));
+                                }
+                                #region catch
+                                catch (IOException)
+                                {
+                                    MainForm.logSomething("[IO Exception]" + graphicArray[j].ToString() + " to " + tempFilePath + ".jpg");
+                                    MessageBox.Show("[" + graphicArray[j].ToString() + " to " + tempFilePath + ".jpg]\r\n"
+                                        + "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (ArgumentException)
+                                {
+                                    MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                #endregion
+                            }
+                            #endregion
+
+                            #region Move tiff files
+                            graphicFiles = Directory.GetFiles(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), "*.tif", SearchOption.TopDirectoryOnly);
+                            graphicArray.Clear();
+                            graphicArray.AddRange(graphicFiles);
+                            graphicArray.Sort();
+
+                            for (int j = 0; j < graphicArray.Count; j++)
+                            {
+                                #region Error check
+                                if (MainForm.plusZero((j + 1).ToString(), 3) == "Error")
+                                {
+                                    MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                #endregion
+
+                                tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
+
+                                try
+                                {
+                                    File.Move(graphicArray[j].ToString(), tempFilePath + ".tif");
+                                    MainForm.logFileName(Path.GetFileName(graphicArray[j].ToString()), Path.GetFileName(tempFilePath + ".tif"));
+                                }
+                                #region catch
+                                catch (IOException)
+                                {
+                                    MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                catch (ArgumentException)
+                                {
+                                    MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return EndoResult.error;
+                                }
+                                #endregion
+                            }
+                            #endregion
+
+                            if (deleteDir(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i])) == EndoResult.error)
+                            {
+                                MessageBox.Show("[" + sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]) + "]" + Properties.Resources.FailedToRemove, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            #region Move xml file
                             try
-                            { Directory.Delete(sourceDir); }
+                            {
+                                File.Move(dirs[i] + @"\ExamInfo.xml", destDir + @"\ExamInfo.xml");
+                                MainForm.logFileName(dirs[i] + @"\ExamInfo.xml", destDir + @"\ExamInfo.xml");
+                            }
+                            #region catch
+                            catch (IOException)
+                            {
+                                MainForm.logSomething("[IO Exception]Move: " + dirs[i] + @"\ExamInfo.xml to " + destDir + @"\ExamInfo.xml");
+                                MessageBox.Show("[" + dirs[i] + @"\ExamInfo.xml to " + destDir + @"\ExamInfo.xml]\r\n" + "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
+
+                            if (File.Exists(destDir + @"\ExamInfo.xml"))
+                            { deleteDir(dirs[i], true); }
+                            #endregion
+                        }
+                    }
+
+                    #region Delete sourceDir
+                    //Delete source folder after checking that empty.
+                    if (Directory.GetFiles(sourceDir + @"\DCIM", "*", SearchOption.AllDirectories).Length == 0)
+                    {
+                        try
+                        { Directory.Delete(sourceDir, true); }
+                        catch (IOException)
+                        {
+                            MainForm.logSomething("[IO Exception]DELETE: " + sourceDir);
+                            MessageBox.Show("DELETE: " + sourceDir + "\r\n" +
+                                "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return EndoResult.error;
+                        }
+                    }
+                    #endregion
+
+                    return EndoResult.success;
+                #endregion
+
+                #region MovedOLYMPUS
+                case "MovedOLYMPUS":
+                    testInfoArray = getPtInfoOlympus(sourceDir + "\\ExamInfo.xml");
+                    patientID = testInfoArray[3].ToString();
+                    dateStr = testInfoArray[0].ToString().Replace("/", "");
+                    tempArray = prepareToMove(testInfoArray, ownerForm);
+
+                    if (tempArray[0] != "")
+                    {
+                        destDir = tempArray[0];
+                        serialNo = tempArray[1];
+
+                        #region Move jpg files
+                        try { graphicFiles = Directory.GetFiles(sourceDir, "*.jpg", SearchOption.TopDirectoryOnly); }
+                        #region catch
+                        catch (DirectoryNotFoundException)
+                        {
+                            MessageBox.Show("[" + sourceDir + "]" + Properties.Resources.FolderNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return EndoResult.error;
+                        }
+                        #endregion
+
+                        graphicArray.Clear();
+                        graphicArray.AddRange(graphicFiles);
+                        graphicArray.Sort();
+                        string tempFilePath;//ファイル移動用
+
+                        MainForm.logTitle(sourceDir, destDir);
+                        for (int j = 0; j < graphicArray.Count; j++)
+                        {
+                            #region Error check
+                            if (MainForm.plusZero((j + 1).ToString(), 3) == "Error")
+                            {
+                                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
+
+                            tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
+
+                            try
+                            {
+                                File.Move(graphicArray[j].ToString(), tempFilePath + ".jpg");
+                                MainForm.logFileName(Path.GetFileName(graphicArray[j].ToString()), Path.GetFileName(tempFilePath + ".jpg"));
+                            }
+                            #region catch
+                            catch (IOException)
+                            {
+                                MainForm.logSomething("[IO Exception]" + graphicArray[j].ToString() + " to " + tempFilePath + ".jpg");
+                                MessageBox.Show("[" + graphicArray[j].ToString() + " to " + tempFilePath + ".jpg]\r\n"
+                                    + "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
+                        }
+                        #endregion
+
+                        #region Move tiff files
+                        graphicFiles = Directory.GetFiles(sourceDir, "*.tif", SearchOption.TopDirectoryOnly);
+                        graphicArray.Clear();
+                        graphicArray.AddRange(graphicFiles);
+                        graphicArray.Sort();
+
+                        for (int j = 0; j < graphicArray.Count; j++)
+                        {
+                            #region Error check
+                            if (MainForm.plusZero((j + 1).ToString(), 3) == "Error")
+                            {
+                                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
+
+                            tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
+
+                            try
+                            {
+                                File.Move(graphicArray[j].ToString(), tempFilePath + ".tif");
+                                MainForm.logFileName(Path.GetFileName(graphicArray[j].ToString()), Path.GetFileName(tempFilePath + ".tif"));
+                            }
+                            #region catch
                             catch (IOException)
                             {
                                 MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return EndoResult.error;
                             }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return EndoResult.error;
+                            }
+                            #endregion
                         }
                         #endregion
 
-                        return EndoResult.success;
+                        #region Move xml file
+                        try
+                        {
+                            File.Move(sourceDir + @"\ExamInfo.xml", destDir + @"\ExamInfo.xml");
+                            MainForm.logFileName("ExamInfo.xml", "ExamInfo.xml");
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MainForm.logSomething("[IO Exception]Move: " + sourceDir + @"\ExamInfo.xml to " + destDir + @"\ExamInfo.xml");
+                            MessageBox.Show("[" + sourceDir + @"\ExamInfo.xml to " + destDir + @"\ExamInfo.xml]\r\n" + "[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return EndoResult.error;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return EndoResult.error;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return EndoResult.error;
+                        }
+                        #endregion
+
+                        #endregion
+
+
+                        if (deleteDir(sourceDir) == EndoResult.error)
+                        {
+                            MessageBox.Show("[" + sourceDir + "]" + Properties.Resources.FailedToRemove, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    break;
+                    else
+                    {
+                        MessageBox.Show("[" + sourceDir + "]" + Properties.Resources.UnsupportedFolderType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return EndoResult.failed;
+                    }
+                    return EndoResult.success;
                 #endregion
 
                 #region Unknown
@@ -398,6 +731,71 @@ namespace GraphicRenamer
                 #endregion
             }
             return EndoResult.failed;
+        }
+
+        /// <summary>
+        /// Prepare to file move and return destination of file moving, serial number
+        /// </summary>
+        /// <param name="testInfoArray"></param>
+        /// <param name="ownerForm"></param>
+        /// <returns>Destination of file moving, serial number</returns>
+        public static string[] prepareToMove(string[] testInfoArray, Form ownerForm)
+        {
+            string[] ret = { "", "" }; //destDir, serialNo
+
+            string serialNo = "";
+            string patientID = testInfoArray[3].ToString();
+            string dateStr = testInfoArray[0].ToString();
+
+            //Show dialog and display ID, date, name, time. User can change ID and examination date with the dialog.
+            #region set exam info
+            SetExamInfo sei = new SetExamInfo(patientID, dateStr, testInfoArray[4].ToString(), testInfoArray[1].ToString(), testInfoArray[2].ToString());
+            sei.Owner = ownerForm;
+            sei.ShowDialog();
+            if (sei.OkCancel == "Cancel")
+            { return ret; }
+            patientID = sei.patientId;
+            sei.Dispose();
+            #endregion
+
+            dateStr = dateStr.Replace("/", "");
+            MainForm.createFolder(Settings.imgDir + @"\" + patientID);
+
+            serialNo = MainForm.getSerialNo(Settings.imgDir + @"\" + patientID, patientID, dateStr);
+            if (serialNo == "error")
+            {
+                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ret;
+            }
+            MainForm.createFolder(Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo);
+            ret[0] = Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
+            ret[1] = serialNo;
+            return ret;
+        }
+
+        /// <summary>
+        /// Delete source folder after checking that empty.
+        /// </summary>
+        /// <param name="dir">Directory to delete</param>
+        /// <param name="forceToDelete">Set true when you need to delete regardless of file existence</param>
+        /// <returns>EndoResult</returns>
+        public static EndoResult deleteDir(string dir, Boolean forceToDelete = false)
+        {
+            if (Directory.GetFiles(dir, "*").Length == 0 || forceToDelete)
+            {
+                try
+                { Directory.Delete(dir, true); }
+                catch (IOException)
+                {
+                    MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return EndoResult.error;
+                }
+                return EndoResult.success;
+            }
+            else
+            {
+                return EndoResult.fileExist;
+            }
         }
 
         public static string getUntilNewLine(string text, int strPoint)
@@ -428,6 +826,21 @@ namespace GraphicRenamer
             }
 
             return ret;
+        }
+
+        public static string getValueOfTag(string text, string tag)
+        {
+            int index_from;
+            int index_to;
+            index_from = text.IndexOf("<" + tag + ">");
+            index_to = text.IndexOf("</" + tag + ">");
+            if (index_from == -1)
+            {
+                MessageBox.Show(Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+            else
+            { return text.Substring(index_from + 2 + tag.Length, index_to - index_from - 2 - tag.Length); }
         }
     }
 }

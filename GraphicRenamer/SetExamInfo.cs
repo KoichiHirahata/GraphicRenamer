@@ -15,7 +15,6 @@ namespace GraphicRenamer
     {
         public string OkCancel;
         public string patientId = "";
-        public string examinationDate = "";
 
         public SetExamInfo(string ptID, string examDate, string ptName, string startTime, string endTime)
         {
@@ -64,7 +63,6 @@ namespace GraphicRenamer
             }
             OkCancel = "OK";
             patientId = tbPtId.Text;
-            examinationDate = monthCalendar1.SelectionStart.ToString("yyyyMMdd");
             this.Close();
         }
 
