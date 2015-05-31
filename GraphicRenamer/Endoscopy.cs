@@ -16,6 +16,14 @@ namespace GraphicRenamer
             string text;
             string ret = "Unknown";
 
+            #region delete empty folder
+            if (Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).Length == 0)
+            {
+                deleteDir(folderPath);
+                return "Empty";
+            }
+            #endregion
+
             if (File.Exists(folderPath + "\\patient.inf"))
             {
                 #region Read from file
@@ -721,6 +729,11 @@ namespace GraphicRenamer
                         MessageBox.Show("[" + sourceDir + "]" + Properties.Resources.UnsupportedFolderType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return EndoResult.failed;
                     }
+                    return EndoResult.success;
+                #endregion
+
+                #region Empty
+                case "Empty":
                     return EndoResult.success;
                 #endregion
 
