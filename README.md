@@ -14,8 +14,8 @@ Windows XP or later.
 .NET Flamework 4.0
 
 ##Usage
-Fill in a blank box with patient's ID, then drag-and-drop files into right side of the window.  
-You may handle more than one object at the same time, but they should be same type (JPEG files or PDF files or Endoscopy image folders).
+Fill in a blank box with patient's ID, then drag-and-drop files into the right side of the window.  
+You may handle more than one object at the same time, but they should be the same type (JPEG files or PDF files or Endoscopy image folders).
 
 ###Gastrointestinal Endoscopy Images
 The software can handle endoscopy system of Olympus and Fujifilm.  
@@ -39,8 +39,8 @@ If you want to share files with other computers, specify shared folder or NAS.
 4. Click "Save" button.
 
 ##Limitations of the software
-If you use drive formated with FAT32, you may store 65534 patient's files.  
-We recommend to use a drive which formatted with NTFS.  
+If you use a drive formatted with FAT32, you may store 65534 patient's files.  
+We recommend using a drive which formatted with NTFS.  
 You may store 999 series of files a day every patient.
 
 ##Licence
