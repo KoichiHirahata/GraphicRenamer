@@ -1,6 +1,6 @@
 GraphicRenamer
 =============
-File management tool which can handle JPEG files, PDF files, and Endoscopy images.
+The file management tool that can handle JPEG files, PDF files, and endoscopy images.
 
 ##Description
 This software will make patient's ID name folder and store files.  
@@ -14,8 +14,8 @@ Windows XP or later.
 .NET Flamework 4.0
 
 ##Usage
-Fill in a blank box with patient's ID, then drag-and-drop files into the right side of the window.  
-You may handle more than one object at the same time, but they should be the same type (JPEG files or PDF files or Endoscopy image folders).
+Fill in a blank box with patient's ID, and then drag-and-drop files into the right side of the window.  
+You may handle more than one object at the same time, but they should be the same type (JPEG files or PDF files or endoscopy image folders).
 
 ###Gastrointestinal Endoscopy Images
 The software can handle endoscopy system of Olympus and Fujifilm.  
@@ -27,7 +27,7 @@ The folder name format is YYMMDD.
 Drag-and-drop them to store.
 
 ####Fujifilm
-Image folders were stored in date name foleders.  
+Image folders stored in date name folders.  
 The name format of date name folders is YYYYMMDD.  
 Drag-and-drop image folders.(Not date name folders).
 
@@ -40,7 +40,7 @@ If you want to share files with other computers, specify shared folder or NAS.
 
 ##Limitations of the software
 If you use a drive formatted with FAT32, you may store 65534 patient's files.  
-We recommend using a drive which formatted with NTFS.  
+We recommend using a drive that formatted with NTFS.  
 You may store 999 series of files a day every patient.
 
 ##Licence

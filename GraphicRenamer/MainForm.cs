@@ -18,6 +18,7 @@ namespace GraphicRenamer
         public MainForm()
         {
             InitializeComponent();
+            move_label.Visible = false;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             //monthCalendar1.Font = new System.Drawing.Font(monthCalendar1.Font.Name, (float)11.25);
 
@@ -85,7 +86,6 @@ namespace GraphicRenamer
                 for (int i = 0; i < gFilesArray.Count; i++)
                 {
                     Endoscopy.moveFigures(gFilesArray[i].ToString(), this);
-                    //●●●進行状況を別ウィンドウで表示する。
                 }
                 return;
             }
@@ -479,5 +479,15 @@ namespace GraphicRenamer
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         { System.Diagnostics.Process.Start("http://www.madeinclinic.jp/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2/pt_graphic/graphicrenamer/"); }
+
+        public void changeMoveLabelText(string str)
+        {
+            move_label.Text = str;
+            move_label.Visible = true;
+            this.Update();
+        }
+
+        public void makeInvisibleMoveLable()
+        { move_label.Visible = false; }
     }
 }

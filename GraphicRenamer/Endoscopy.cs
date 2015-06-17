@@ -212,15 +212,15 @@ namespace GraphicRenamer
         }
 
 
-        public enum EndoResult { success, failed, error, fileExist }
+        public enum EndoResult { success, failed, error, fileExist, skipped }
 
-        public static EndoResult moveFigures(string sourceDir, Form ownerForm)
+        public static EndoResult moveFigures(string sourceDir, MainForm ownerForm)
         {
             string serialNo;
             string patientID;
             string dateStr;
             string destDir;//ファイルの移動先
-            string[] testInfoArray = new string[5];
+            string[] testInfoArray = new string[5]; //examination date, start time, end time, patient ID, patient name
             string[] graphicFiles;
             ArrayList graphicArray = new ArrayList();
 
@@ -236,6 +236,8 @@ namespace GraphicRenamer
                     if (File.Exists(infs[0]))
                     {
                         testInfoArray = Endoscopy.getPtInfoFujifilm(infs[0]);
+                        if (isTimeEmpty(testInfoArray[2]))
+                        { return EndoResult.skipped; }
                         patientID = testInfoArray[3].ToString();
                         dateStr = testInfoArray[0].ToString().Replace("/", "");
                         tempArray = prepareToMove(testInfoArray, ownerForm);
@@ -248,7 +250,7 @@ namespace GraphicRenamer
                         graphicFiles = Directory.GetFiles(sourceDir, "*.JPG", SearchOption.TopDirectoryOnly);
                         graphicArray.AddRange(graphicFiles);
                         graphicArray.Sort();
-                        string tempFilePath;//ファイル移動用
+                        string tempFilePath; //For moving files
 
                         MainForm.logTitle(sourceDir, destDir);
                         for (int i = 0; i < graphicArray.Count; i++)
@@ -260,6 +262,8 @@ namespace GraphicRenamer
                                 return EndoResult.error;
                             }
                             #endregion
+
+                            ownerForm.changeMoveLabelText("Now moving files [" + (i + 1).ToString() + "/" + graphicArray.Count.ToString() + "]");
 
                             tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((i + 1).ToString(), 3);
 
@@ -376,6 +380,8 @@ namespace GraphicRenamer
                             #endregion
                         }
 
+                        ownerForm.makeInvisibleMoveLable();
+
                         #region Move inf file(s)
                         for (int i = 0; i < infs.Length; i++)
                         {
@@ -454,6 +460,8 @@ namespace GraphicRenamer
                                 }
                                 #endregion
 
+                                ownerForm.changeMoveLabelText("Now moving files [" + (j + 1).ToString() + "/" + graphicArray.Count.ToString() + "]");
+
                                 tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
 
                                 try
@@ -481,6 +489,9 @@ namespace GraphicRenamer
                                 }
                                 #endregion
                             }
+
+                            ownerForm.makeInvisibleMoveLable();
+
                             #endregion
 
                             #region Move tiff files
@@ -498,6 +509,8 @@ namespace GraphicRenamer
                                     return EndoResult.error;
                                 }
                                 #endregion
+
+                                ownerForm.changeMoveLabelText("Now moving files [" + (j + 1).ToString() + "/" + graphicArray.Count.ToString() + "]");
 
                                 tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
 
@@ -524,6 +537,8 @@ namespace GraphicRenamer
                                 }
                                 #endregion
                             }
+
+                            ownerForm.makeInvisibleMoveLable();
                             #endregion
 
                             if (deleteDir(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i])) == EndoResult.error)
@@ -619,6 +634,8 @@ namespace GraphicRenamer
                             }
                             #endregion
 
+                            ownerForm.changeMoveLabelText("Now moving files [" + (j + 1).ToString() + "/" + graphicArray.Count.ToString() + "]");
+
                             tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
 
                             try
@@ -646,6 +663,8 @@ namespace GraphicRenamer
                             }
                             #endregion
                         }
+
+                        ownerForm.makeInvisibleMoveLable();
                         #endregion
 
                         #region Move tiff files
@@ -663,6 +682,8 @@ namespace GraphicRenamer
                                 return EndoResult.error;
                             }
                             #endregion
+
+                            ownerForm.changeMoveLabelText("Now moving files [" + (j + 1).ToString() + "/" + graphicArray.Count.ToString() + "]");
 
                             tempFilePath = destDir + @"\" + patientID + "_" + dateStr + "_" + serialNo + "-" + MainForm.plusZero((j + 1).ToString(), 3);
 
@@ -689,6 +710,8 @@ namespace GraphicRenamer
                             }
                             #endregion
                         }
+
+                        ownerForm.makeInvisibleMoveLable();
                         #endregion
 
                         #region Move xml file
@@ -854,6 +877,12 @@ namespace GraphicRenamer
             }
             else
             { return text.Substring(index_from + 2 + tag.Length, index_to - index_from - 2 - tag.Length); }
+        }
+
+        public static bool isTimeEmpty(string str)
+        {
+            str = str.Replace(':', ' ');
+            return String.IsNullOrWhiteSpace(str);
         }
     }
 }
