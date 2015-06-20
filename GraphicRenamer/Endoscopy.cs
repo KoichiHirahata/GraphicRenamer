@@ -16,12 +16,14 @@ namespace GraphicRenamer
             string text;
             string ret = "Unknown";
 
-            #region delete empty folder
+            #region Check empty folder
             if (Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).Length == 0)
-            {
-                deleteDir(folderPath);
-                return "Empty";
-            }
+            { return "Empty"; }
+            #endregion
+
+            #region Only Thumbs.db
+            if (Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).Length == 1 && File.Exists(folderPath + "\\Thumbs.db"))
+            { return "Only Thumbs.db"; }
             #endregion
 
             if (File.Exists(folderPath + "\\patient.inf"))
@@ -246,6 +248,7 @@ namespace GraphicRenamer
 
                         destDir = tempArray[0];
                         serialNo = tempArray[1];
+                        patientID = tempArray[2];
 
                         graphicFiles = Directory.GetFiles(sourceDir, "*.JPG", SearchOption.TopDirectoryOnly);
                         graphicArray.AddRange(graphicFiles);
@@ -433,6 +436,7 @@ namespace GraphicRenamer
                         {
                             destDir = tempArray[0];
                             serialNo = tempArray[1];
+                            patientID = tempArray[2];
 
                             #region Move jpg files
                             try { graphicFiles = Directory.GetFiles(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), "*.jpg", SearchOption.TopDirectoryOnly); }
@@ -607,6 +611,7 @@ namespace GraphicRenamer
                     {
                         destDir = tempArray[0];
                         serialNo = tempArray[1];
+                        patientID = tempArray[2];
 
                         #region Move jpg files
                         try { graphicFiles = Directory.GetFiles(sourceDir, "*.jpg", SearchOption.TopDirectoryOnly); }
@@ -757,6 +762,13 @@ namespace GraphicRenamer
 
                 #region Empty
                 case "Empty":
+                    deleteDir(sourceDir);
+                    return EndoResult.success;
+                #endregion
+
+                #region Only Thumbs.db
+                case "Only Thumbs.db":
+                    deleteDir(sourceDir, true);
                     return EndoResult.success;
                 #endregion
 
@@ -777,7 +789,7 @@ namespace GraphicRenamer
         /// <returns>Destination of file moving, serial number</returns>
         public static string[] prepareToMove(string[] testInfoArray, Form ownerForm)
         {
-            string[] ret = { "", "" }; //destDir, serialNo
+            string[] ret = { "", "", "" }; //destDir, serialNo, patientID
 
             string serialNo = "";
             string patientID = testInfoArray[3].ToString();
@@ -806,6 +818,7 @@ namespace GraphicRenamer
             MainForm.createFolder(Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo);
             ret[0] = Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
             ret[1] = serialNo;
+            ret[2] = patientID;
             return ret;
         }
 
