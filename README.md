@@ -6,7 +6,7 @@ File management tool for JPEG files, PDF files, and endoscopic images.
 Software creates patient ID name folder and automatically stores files.  
 Format: [ID]_[Date(YYYYMMDD)]_[sequential serial number].[extension]  
 (e.g. 1000_20140302_xxx.jpg)  
-**++As software will move and change file names, please back up files prior.++**  
+**As software will move and change file names, please back up files prior.**  
   
 To view stored files, please use [PtGraViewer](https://github.com/KoichiHirahata/PtGraViewer).
 
@@ -20,7 +20,7 @@ You may simultaneously drag-and-drop multiple files (identical extension types) 
 
 ###Gastrointestinal Endoscopy Images
 Software is only compatible with Olympus and Fujifilm digital images.  
-**++Please be sure to backup before transfer.++**
+**Please be sure to backup before transfer.**
 
 ####Olympus
 Endoscopy system's images are stored in date name folders (YYMMDD).
