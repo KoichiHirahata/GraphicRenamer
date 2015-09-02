@@ -27,12 +27,13 @@ namespace GraphicRenamer
             if (System.IO.File.Exists(Application.StartupPath + "\\settings.config"))
             {
                 Settings.readSettings();
-                cbUseSrv.Checked = Settings.useDB;
+                cbUseFeSrv.Checked = Settings.useDB;
                 tbDBSrv.Text = Settings.DBSrvIP;
                 tbDBsrvPort.Text = Settings.DBSrvPort;
                 tbDbID.Text = Settings.DBconnectID;
                 tbDBpw.Text = Settings.DBconnectPw;
-                setDbPropertyVisibleOrNot();
+                cbUsePlugin.Checked = Settings.usePlugin;
+                tbPluginLocation.Text = Settings.ptInfoPlugin;
 
                 if (Settings.imgDir.Length == 0)
                 { this.tbSaveDir.Text = "(" + Properties.Resources.NotConfigured + ")"; }
@@ -42,7 +43,8 @@ namespace GraphicRenamer
             else
             { this.tbSaveDir.Text = "(" + Properties.Resources.InitialSetting + ")"; }
 
-            setDbPropertyVisibleOrNot();
+            setFeDbPropertyVisibleOrNot();
+            setPluginPropertyVisibleOrNot();
             this.ActiveControl = this.btSave;
         }
 
@@ -63,7 +65,7 @@ namespace GraphicRenamer
 
         private void tbSaveDir_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && cbUseSrv.Checked == false)
+            if (e.KeyCode == Keys.Enter && cbUseFeSrv.Checked == false)
             { saveProcedure(); }
         }
 
@@ -81,17 +83,25 @@ namespace GraphicRenamer
                 MessageBox.Show("[Save to:]" + Properties.Resources.FolderNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if(!File.Exists(Settings.ptInfoPlugin))
+            {
+                MessageBox.Show("[Plugin:]" + Properties.Resources.FileNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             #endregion
 
             Settings.imgDir = tbSaveDir.Text;
-            Settings.useDB = cbUseSrv.Checked;
+            Settings.useDB = cbUseFeSrv.Checked;
             Settings.DBSrvIP = tbDBSrv.Text;
             Settings.DBSrvPort = tbDBsrvPort.Text;
             Settings.DBconnectID = tbDbID.Text;
             if (tbDBpw.Visible)
             { Settings.DBconnectPw = tbDBpw.Text; }
+            Settings.usePlugin = cbUsePlugin.Checked;
+            Settings.ptInfoPlugin = tbPluginLocation.Text;
 
-            if (cbUseSrv.Checked)
+            if (cbUseFeSrv.Checked)
             {
                 if (testConnect())
                 {
@@ -113,38 +123,38 @@ namespace GraphicRenamer
         }
         #endregion
 
-        private void cbUseSrv_CheckedChanged(object sender, EventArgs e)
-        { setDbPropertyVisibleOrNot(); }
-
-        private void setDbPropertyVisibleOrNot()
+        private void cbUseFeSrv_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbUseSrv.Checked)
-            {
-                lbDBSrv.Visible = true;
-                tbDBSrv.Visible = true;
-                lbSrvSample.Visible = true;
-                lbDBsrvPort.Visible = true;
-                tbDBsrvPort.Visible = true;
-                lbDbID.Visible = true;
-                tbDbID.Visible = true;
-                pwState.Visible = true;
-                btPwSet.Visible = true;
-                btTestConnect.Visible = true;
-            }
-            else
-            {
-                lbDBSrv.Visible = false;
-                tbDBSrv.Visible = false;
-                lbSrvSample.Visible = false;
-                lbDBsrvPort.Visible = false;
-                tbDBsrvPort.Visible = false;
-                lbDbID.Visible = false;
-                tbDbID.Visible = false;
-                pwState.Visible = false;
-                btPwSet.Visible = false;
-                tbDBpw.Visible = false;
-                btTestConnect.Visible = false;
-            }
+            if (cbUseFeSrv.Checked)
+            { cbUsePlugin.Checked = false; }
+            setFeDbPropertyVisibleOrNot();
+        }
+
+        private void setFeDbPropertyVisibleOrNot()
+        {
+            lbDBSrv.Visible = cbUseFeSrv.Checked;
+            tbDBSrv.Visible = cbUseFeSrv.Checked;
+            lbSrvSample.Visible = cbUseFeSrv.Checked;
+            lbDBsrvPort.Visible = cbUseFeSrv.Checked;
+            tbDBsrvPort.Visible = cbUseFeSrv.Checked;
+            lbDbID.Visible = cbUseFeSrv.Checked;
+            tbDbID.Visible = cbUseFeSrv.Checked;
+            pwState.Visible = cbUseFeSrv.Checked;
+            btPwSet.Visible = cbUseFeSrv.Checked;
+            btTestConnect.Visible = cbUseFeSrv.Checked;
+        }
+
+        private void cbUsePlugin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbUsePlugin.Checked)
+            { cbUseFeSrv.Checked = false; }
+            setPluginPropertyVisibleOrNot();
+        }
+
+        private void setPluginPropertyVisibleOrNot()
+        {
+            tbPluginLocation.Visible = cbUsePlugin.Checked;
+            btBrowsePlugin.Visible = cbUsePlugin.Checked;
         }
 
         private void btTestConnect_Click(object sender, EventArgs e)
@@ -252,6 +262,7 @@ namespace GraphicRenamer
         public static string settingFile_location { get; set; } //Config file path
         public static string lang { get; set; } //language
         public static string sslSetting { get; set; } //SSL setting string
+        public static Boolean usePlugin { get; set; }
         public static string ptInfoPlugin { get; set; } //File location of the plug-in to get patient information
 
         public static void initiateSettings()
@@ -293,6 +304,8 @@ namespace GraphicRenamer
                 st.DBconnectID = "";
                 st.DBconnectPw = "";
             }
+            st.usePlugin = Settings.usePlugin;
+            st.ptInfoPlugin = Settings.ptInfoPlugin;           
 
             XmlSerializer xserializer = new XmlSerializer(typeof(Settings4file));
             //Open file
@@ -300,6 +313,16 @@ namespace GraphicRenamer
                 new System.IO.FileStream(Settings.settingFile_location, System.IO.FileMode.Create);
             xserializer.Serialize(fs1, st);
             fs1.Close();
+
+            #region Save to plugins.ini
+            if (Settings.usePlugin && !String.IsNullOrWhiteSpace(Settings.ptInfoPlugin))
+            {
+                string text = "Patient information=" + Settings.ptInfoPlugin + "\r\n";
+                StreamWriter sw = new StreamWriter(Application.StartupPath + @"\plugins.ini", false);
+                sw.Write(text);
+                sw.Close();
+            }
+            #endregion
         }
 
         //Read from file
@@ -329,6 +352,7 @@ namespace GraphicRenamer
                 Settings.imgDir = st.imgDir;
                 Settings.openFolderButtonVisible = st.openFolderButtonVisible;
                 Settings.useDB = st.useDB;
+                Settings.usePlugin = st.usePlugin;
                 Settings.DBSrvIP = st.DBSrvIP;
                 Settings.DBSrvPort = st.DBSrvPort;
                 Settings.DBconnectID = st.DBconnectID;
@@ -406,6 +430,8 @@ namespace GraphicRenamer
         public string DBSrvPort { get; set; } //Port number of DB server
         public string DBconnectID { get; set; } //ID of DB user
         public string DBconnectPw { get; set; } //Pw of DB user
+        public Boolean usePlugin { get; set; }
+        public string ptInfoPlugin { get; set; }
     }
     #endregion
 

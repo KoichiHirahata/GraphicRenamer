@@ -163,23 +163,26 @@
   <data name="lbSrvSample.Text" xml:space="preserve">
     <value>例：192.168.1.10</value>
   </data>
-  <data name="lbDBSrv.Font" type="System.Drawing.Font, System.Drawing">
-    <value>MS UI Gothic, 12pt</value>
-  </data>
   <data name="lbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 16</value>
   </data>
   <data name="lbDBSrv.Text" xml:space="preserve">
     <value>データベースサーバーのIPアドレス</value>
   </data>
-  <data name="cbUseSrv.Font" type="System.Drawing.Font, System.Drawing">
-    <value>MS UI Gothic, 12pt</value>
+  <data name="cbUseFeSrv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>251, 20</value>
   </data>
-  <data name="cbUseSrv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 20</value>
+  <data name="cbUseFeSrv.Text" xml:space="preserve">
+    <value>Findings Editorのデータベースを使う</value>
   </data>
-  <data name="cbUseSrv.Text" xml:space="preserve">
-    <value>Findings Editorのデータベースを使用する</value>
+  <data name="cbUsePlugin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 20</value>
+  </data>
+  <data name="cbUsePlugin.Text" xml:space="preserve">
+    <value>プラグインを使う</value>
+  </data>
+  <data name="btBrowsePlugin.Text" xml:space="preserve">
+    <value>参照</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>設定</value>

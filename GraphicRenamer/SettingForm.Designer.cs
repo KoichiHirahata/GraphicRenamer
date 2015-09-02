@@ -45,7 +45,10 @@
             this.lbSrvSample = new System.Windows.Forms.Label();
             this.lbDBSrv = new System.Windows.Forms.Label();
             this.tbDBSrv = new System.Windows.Forms.TextBox();
-            this.cbUseSrv = new System.Windows.Forms.CheckBox();
+            this.cbUseFeSrv = new System.Windows.Forms.CheckBox();
+            this.cbUsePlugin = new System.Windows.Forms.CheckBox();
+            this.tbPluginLocation = new System.Windows.Forms.TextBox();
+            this.btBrowsePlugin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbSaveDir
@@ -139,18 +142,39 @@
             resources.ApplyResources(this.tbDBSrv, "tbDBSrv");
             this.tbDBSrv.Name = "tbDBSrv";
             // 
-            // cbUseSrv
+            // cbUseFeSrv
             // 
-            resources.ApplyResources(this.cbUseSrv, "cbUseSrv");
-            this.cbUseSrv.Name = "cbUseSrv";
-            this.cbUseSrv.UseVisualStyleBackColor = true;
-            this.cbUseSrv.CheckedChanged += new System.EventHandler(this.cbUseSrv_CheckedChanged);
+            resources.ApplyResources(this.cbUseFeSrv, "cbUseFeSrv");
+            this.cbUseFeSrv.Name = "cbUseFeSrv";
+            this.cbUseFeSrv.UseVisualStyleBackColor = true;
+            this.cbUseFeSrv.CheckedChanged += new System.EventHandler(this.cbUseFeSrv_CheckedChanged);
+            // 
+            // cbUsePlugin
+            // 
+            resources.ApplyResources(this.cbUsePlugin, "cbUsePlugin");
+            this.cbUsePlugin.Name = "cbUsePlugin";
+            this.cbUsePlugin.UseVisualStyleBackColor = true;
+            this.cbUsePlugin.CheckedChanged += new System.EventHandler(this.cbUsePlugin_CheckedChanged);
+            // 
+            // tbPluginLocation
+            // 
+            resources.ApplyResources(this.tbPluginLocation, "tbPluginLocation");
+            this.tbPluginLocation.Name = "tbPluginLocation";
+            // 
+            // btBrowsePlugin
+            // 
+            resources.ApplyResources(this.btBrowsePlugin, "btBrowsePlugin");
+            this.btBrowsePlugin.Name = "btBrowsePlugin";
+            this.btBrowsePlugin.UseVisualStyleBackColor = true;
             // 
             // SettingForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cbUseSrv);
+            this.Controls.Add(this.tbPluginLocation);
+            this.Controls.Add(this.btBrowsePlugin);
+            this.Controls.Add(this.cbUsePlugin);
+            this.Controls.Add(this.cbUseFeSrv);
             this.Controls.Add(this.tbDBsrvPort);
             this.Controls.Add(this.lbDBsrvPort);
             this.Controls.Add(this.tbDbID);
@@ -195,6 +219,9 @@
         private System.Windows.Forms.Label lbSrvSample;
         private System.Windows.Forms.Label lbDBSrv;
         private System.Windows.Forms.TextBox tbDBSrv;
-        private System.Windows.Forms.CheckBox cbUseSrv;
+        private System.Windows.Forms.CheckBox cbUseFeSrv;
+        private System.Windows.Forms.CheckBox cbUsePlugin;
+        private System.Windows.Forms.TextBox tbPluginLocation;
+        private System.Windows.Forms.Button btBrowsePlugin;
     }
 }
