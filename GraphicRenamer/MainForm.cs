@@ -406,7 +406,7 @@ namespace GraphicRenamer
         #region ReadPatientData
         private void tbID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Settings.useDB)
+            if (Settings.useFeDB)
             { readPtDataUsingFe(tbID.Text); }
             if (Settings.usePlugin && !String.IsNullOrWhiteSpace(Settings.ptInfoPlugin))
             { readPtDataUsingPlugin(tbID.Text); }

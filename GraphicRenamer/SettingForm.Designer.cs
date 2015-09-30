@@ -166,6 +166,7 @@
             resources.ApplyResources(this.btBrowsePlugin, "btBrowsePlugin");
             this.btBrowsePlugin.Name = "btBrowsePlugin";
             this.btBrowsePlugin.UseVisualStyleBackColor = true;
+            this.btBrowsePlugin.Click += new System.EventHandler(this.btBrowsePlugin_Click);
             // 
             // SettingForm
             // 

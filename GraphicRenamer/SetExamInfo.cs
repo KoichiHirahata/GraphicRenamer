@@ -25,7 +25,7 @@ namespace GraphicRenamer
             lbStartTime.Text = startTime;
             lbEndTime.Text = endTime;
 
-            if(Settings.useDB)
+            if(Settings.useFeDB)
             {
                 lbNameDbCaption.Visible = true;
                 lbPtNameDB.Text = "";
@@ -69,7 +69,7 @@ namespace GraphicRenamer
         #region ReadPatientData
         private void tbPtId_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Settings.useDB)
+            if (Settings.useFeDB)
             { readPtData(tbPtId.Text); }
         }
 

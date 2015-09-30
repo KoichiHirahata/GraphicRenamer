@@ -27,7 +27,7 @@ namespace GraphicRenamer
             if (System.IO.File.Exists(Application.StartupPath + "\\settings.config"))
             {
                 Settings.readSettings();
-                cbUseFeSrv.Checked = Settings.useDB;
+                cbUseFeSrv.Checked = Settings.useFeDB;
                 tbDBSrv.Text = Settings.DBSrvIP;
                 tbDBsrvPort.Text = Settings.DBSrvPort;
                 tbDbID.Text = Settings.DBconnectID;
@@ -84,7 +84,7 @@ namespace GraphicRenamer
                 return;
             }
 
-            if(!File.Exists(Settings.ptInfoPlugin))
+            if(!File.Exists(tbPluginLocation.Text))
             {
                 MessageBox.Show("[Plugin:]" + Properties.Resources.FileNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -92,7 +92,7 @@ namespace GraphicRenamer
             #endregion
 
             Settings.imgDir = tbSaveDir.Text;
-            Settings.useDB = cbUseFeSrv.Checked;
+            Settings.useFeDB = cbUseFeSrv.Checked;
             Settings.DBSrvIP = tbDBSrv.Text;
             Settings.DBSrvPort = tbDBsrvPort.Text;
             Settings.DBconnectID = tbDbID.Text;
@@ -120,6 +120,14 @@ namespace GraphicRenamer
         {
             tbDBpw.Visible = true;
             tbDBpw.Focus();
+        }
+
+        private void btBrowsePlugin_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = Application.StartupPath;
+            if (fbd.ShowDialog() == DialogResult.OK)
+            { tbPluginLocation.Text = fbd.SelectedPath; }
         }
         #endregion
 
@@ -254,7 +262,7 @@ namespace GraphicRenamer
     {
         public static string imgDir { get; set; }
         public static Boolean openFolderButtonVisible { get; set; }
-        public static Boolean useDB { get; set; }
+        public static Boolean useFeDB { get; set; }
         public static string DBSrvIP { get; set; } //IP address of DB server
         public static string DBSrvPort { get; set; } //Port number of DB server
         public static string DBconnectID { get; set; } //ID of DB user
@@ -274,12 +282,12 @@ namespace GraphicRenamer
             sslSetting = "SSL=true;SslMode=Require;"; //Use this when you want to connect using SSL
             ptInfoPlugin = checkPtInfoPlugin();
 
-            if (Settings.useDB)
+            if (Settings.useFeDB)
             {
                 if (!testConnect())
                 {
                     MessageBox.Show(Properties.Resources.CouldntOpenConn, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Settings.useDB = false;
+                    Settings.useFeDB = false;
                 }
             }
         }
@@ -289,8 +297,8 @@ namespace GraphicRenamer
             Settings4file st = new Settings4file();
             st.imgDir = Settings.imgDir;
             st.openFolderButtonVisible = Settings.openFolderButtonVisible;
-            st.useDB = Settings.useDB;
-            if (Settings.useDB)
+            st.useDB = Settings.useFeDB;
+            if (Settings.useFeDB)
             {
                 st.DBSrvIP = Settings.DBSrvIP;
                 st.DBSrvPort = Settings.DBSrvPort;
@@ -351,7 +359,7 @@ namespace GraphicRenamer
 
                 Settings.imgDir = st.imgDir;
                 Settings.openFolderButtonVisible = st.openFolderButtonVisible;
-                Settings.useDB = st.useDB;
+                Settings.useFeDB = st.useDB;
                 Settings.usePlugin = st.usePlugin;
                 Settings.DBSrvIP = st.DBSrvIP;
                 Settings.DBSrvPort = st.DBSrvPort;
