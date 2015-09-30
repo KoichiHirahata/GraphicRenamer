@@ -84,7 +84,7 @@ namespace GraphicRenamer
                 return;
             }
 
-            if(!File.Exists(tbPluginLocation.Text))
+            if(cbUsePlugin.Checked && !File.Exists(tbPluginLocation.Text))
             {
                 MessageBox.Show("[Plugin:]" + Properties.Resources.FileNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
