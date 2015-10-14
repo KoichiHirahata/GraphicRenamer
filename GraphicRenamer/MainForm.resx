@@ -137,10 +137,10 @@
     <value>Help</value>
   </data>
   <data name="ver104ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 28</value>
+    <value>109, 28</value>
   </data>
   <data name="ver104ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Ver. 1.16</value>
+    <value>Ver. 1.16.1</value>
   </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
