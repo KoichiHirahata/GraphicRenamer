@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
 using Npgsql;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace GraphicRenamer
 {
@@ -20,7 +17,10 @@ namespace GraphicRenamer
         {
             InitializeComponent();
             move_label.Visible = false;
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            AutoScaleMode = AutoScaleMode.None;
+            verToolStripMenuItem.Text += Assembly.GetEntryAssembly().GetName().Version.Major.ToString()
+                + "." + Assembly.GetEntryAssembly().GetName().Version.Minor.ToString()
+                + "." + Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
             //monthCalendar1.Font = new System.Drawing.Font(monthCalendar1.Font.Name, (float)11.25);
 
             pictureBox1.AllowDrop = true;

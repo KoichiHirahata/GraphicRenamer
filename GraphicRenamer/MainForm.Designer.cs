@@ -32,7 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ver104ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.tbID = new System.Windows.Forms.TextBox();
@@ -50,7 +50,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.ver104ToolStripMenuItem});
+            this.verToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // settingsToolStripMenuItem
@@ -65,11 +65,11 @@
             resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
-            // ver104ToolStripMenuItem
+            // verToolStripMenuItem
             // 
-            this.ver104ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.ver104ToolStripMenuItem.Name = "ver104ToolStripMenuItem";
-            resources.ApplyResources(this.ver104ToolStripMenuItem, "ver104ToolStripMenuItem");
+            this.verToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.verToolStripMenuItem.Name = "verToolStripMenuItem";
+            resources.ApplyResources(this.verToolStripMenuItem, "verToolStripMenuItem");
             // 
             // monthCalendar1
             // 
@@ -150,7 +150,7 @@
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ver104ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verToolStripMenuItem;
         private System.Windows.Forms.Label lbPtName;
         private System.Windows.Forms.Label move_label;
         private System.Windows.Forms.Button button1;
