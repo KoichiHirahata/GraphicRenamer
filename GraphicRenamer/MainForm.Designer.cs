@@ -39,6 +39,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbPtName = new System.Windows.Forms.Label();
             this.move_label = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -106,11 +107,19 @@
             this.move_label.BackColor = System.Drawing.Color.LightBlue;
             this.move_label.Name = "move_label";
             // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.move_label);
             this.Controls.Add(this.lbPtName);
             this.Controls.Add(this.pictureBox1);
@@ -144,6 +153,7 @@
         private System.Windows.Forms.ToolStripMenuItem ver104ToolStripMenuItem;
         private System.Windows.Forms.Label lbPtName;
         private System.Windows.Forms.Label move_label;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -216,7 +216,7 @@ namespace GraphicRenamer
 
         public enum EndoResult { success, failed, error, fileExist, skipped }
 
-        public static EndoResult moveFigures(string sourceDir, MainForm ownerForm)
+        public static EndoResult moveImagesAndFiles(string sourceDir, MainForm ownerForm)
         {
             string serialNo;
             string patientID;
@@ -228,7 +228,7 @@ namespace GraphicRenamer
 
             string[] tempArray;
 
-            switch (Endoscopy.determinFolderType(sourceDir))
+            switch (determinFolderType(sourceDir))
             {
                 #region VP-4450HD, VP-4400
                 case "VP-4450HD":
@@ -427,6 +427,22 @@ namespace GraphicRenamer
                     string[] dirs = Directory.GetDirectories(sourceDir + @"\CV\STUDY", "*", SearchOption.TopDirectoryOnly);
                     for (int i = 0; i < dirs.Length; i++)
                     {
+                        #region Error check(Check whether ExamInfo.xml and JPEG files exist or not)
+                        //Check whether ExamInfo.xml exist or not
+                        if (!File.Exists(dirs[i] + "\\ExamInfo.xml"))
+                        {
+                            MessageBox.Show("[" + dirs[i] + "]ExamInfo.xml has not found.");
+                            continue;
+                        }
+
+                        //Check whether JPEG files exist or not
+                        if (Directory.GetFiles(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), "*.jpg", SearchOption.TopDirectoryOnly).Length == 0)
+                        {
+                            MessageBox.Show("[" + sourceDir + @"\DCIM\" + dirs[i] + "]JPEG files have not found.");
+                            continue;
+                        }
+                        #endregion
+
                         testInfoArray = getPtInfoOlympus(dirs[i] + "\\ExamInfo.xml");
                         patientID = testInfoArray[3].ToString();
                         dateStr = testInfoArray[0].ToString().Replace("/", "");
@@ -602,6 +618,22 @@ namespace GraphicRenamer
 
                 #region MovedOLYMPUS
                 case "MovedOLYMPUS":
+                    #region Error check(Check whether ExamInfo.xml and JPEG files exist or not)
+                    //Check whether ExamInfo.xml exist or not
+                    if (!File.Exists(sourceDir + "\\ExamInfo.xml"))
+                    {
+                        MessageBox.Show("[" + sourceDir + "]ExamInfo.xml has not found.");
+                        return EndoResult.skipped;
+                    }
+
+                    //Check whether JPEG files exist or not
+                    if (Directory.GetFiles(sourceDir, "*.jpg", SearchOption.TopDirectoryOnly).Length == 0)
+                    {
+                        MessageBox.Show("["+sourceDir+"]JPEG files have not found.");
+                        return EndoResult.skipped;
+                    }
+                    #endregion
+
                     testInfoArray = getPtInfoOlympus(sourceDir + "\\ExamInfo.xml");
                     patientID = testInfoArray[3].ToString();
                     dateStr = testInfoArray[0].ToString().Replace("/", "");
@@ -776,7 +808,7 @@ namespace GraphicRenamer
                 case "Unknown":
                     MessageBox.Show(Properties.Resources.UnsupportedFolderType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return EndoResult.failed;
-                #endregion
+                    #endregion
             }
             return EndoResult.failed;
         }

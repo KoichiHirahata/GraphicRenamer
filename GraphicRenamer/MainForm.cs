@@ -86,7 +86,7 @@ namespace GraphicRenamer
 
                 for (int i = 0; i < gFilesArray.Count; i++)
                 {
-                    Endoscopy.moveFigures(gFilesArray[i].ToString(), this);
+                    Endoscopy.moveImagesAndFiles(gFilesArray[i].ToString(), this);
                 }
                 return;
             }
@@ -501,7 +501,7 @@ namespace GraphicRenamer
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-            { tbID.Text = ""; }
+            { clearTbPtId(); }
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -516,5 +516,11 @@ namespace GraphicRenamer
 
         public void makeInvisibleMoveLable()
         { move_label.Visible = false; }
+
+        private void clearTbPtId()
+        { tbID.Text = ""; }
+
+        private void button1_Click(object sender, EventArgs e)
+        { clearTbPtId(); }
     }
 }

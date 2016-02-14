@@ -130,4 +130,7 @@
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>ヘルプ</value>
   </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>クリア</value>
+  </data>
 </root>
