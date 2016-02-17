@@ -22,8 +22,17 @@ You may simultaneously drag-and-drop multiple files (identical extension types) 
 Software is only compatible with Olympus and Fujifilm digital images.  
 **Please be sure to backup before transfer.**
 
+####Tested Endoscopy Systems
+[Olympus]
+EVIS LUCELA ELITE CV-290
+
+[Fujifilm]
+Advancia HD(VP-4450HD)
+Sapientia(VP-4400)
+
 ####Olympus
 Endoscopy system's images are stored in date name folders (YYMMDD).
+Drag-and-drop date name folders (Not image folders).
 
 ####Fujifilm
 Endoscopic image folders are stored in date-name folders (YYYYMMDD).  
