@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 
@@ -15,6 +9,7 @@ namespace GraphicRenamer
     {
         public string OkCancel;
         public string patientId = "";
+        public string dateStr = "";
 
         public SetExamInfo(string ptID, string examDate, string ptName, string startTime, string endTime)
         {
@@ -25,7 +20,7 @@ namespace GraphicRenamer
             lbStartTime.Text = startTime;
             lbEndTime.Text = endTime;
 
-            if(Settings.useFeDB)
+            if (Settings.useFeDB)
             {
                 lbNameDbCaption.Visible = true;
                 lbPtNameDB.Text = "";
@@ -63,6 +58,7 @@ namespace GraphicRenamer
             }
             OkCancel = "OK";
             patientId = tbPtId.Text;
+            dateStr = monthCalendar1.SelectionStart.ToString("yyyyMMdd");
             this.Close();
         }
 

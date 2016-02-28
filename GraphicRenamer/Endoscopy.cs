@@ -237,8 +237,6 @@ namespace GraphicRenamer
                         testInfoArray = Endoscopy.getPtInfoFujifilm(infs[0]);
                         if (isTimeEmpty(testInfoArray[2]))
                         { return EndoResult.skipped; }
-                        patientID = testInfoArray[3].ToString();
-                        dateStr = testInfoArray[0].ToString().Replace("/", "");
                         tempArray = prepareToMove(testInfoArray, ownerForm);
                         if (tempArray[0] == "")
                         { return EndoResult.failed; }
@@ -246,6 +244,7 @@ namespace GraphicRenamer
                         destDir = tempArray[0];
                         serialNo = tempArray[1];
                         patientID = tempArray[2];
+                        dateStr = tempArray[3];
 
                         graphicFiles = Directory.GetFiles(sourceDir, "*.JPG", SearchOption.TopDirectoryOnly);
                         graphicArray.AddRange(graphicFiles);
@@ -441,8 +440,6 @@ namespace GraphicRenamer
                         #endregion
 
                         testInfoArray = getPtInfoOlympus(dirs[i] + "\\ExamInfo.xml");
-                        patientID = testInfoArray[3].ToString();
-                        dateStr = testInfoArray[0].ToString().Replace("/", "");
                         tempArray = prepareToMove(testInfoArray, ownerForm);
 
                         if (tempArray[0] != "")
@@ -450,6 +447,7 @@ namespace GraphicRenamer
                             destDir = tempArray[0];
                             serialNo = tempArray[1];
                             patientID = tempArray[2];
+                            dateStr = tempArray[3];
 
                             #region Move jpg files
                             try { graphicFiles = Directory.GetFiles(sourceDir + @"\DCIM\" + Path.GetFileName(dirs[i]), "*.jpg", SearchOption.TopDirectoryOnly); }
@@ -632,8 +630,6 @@ namespace GraphicRenamer
                     #endregion
 
                     testInfoArray = getPtInfoOlympus(sourceDir + "\\ExamInfo.xml");
-                    patientID = testInfoArray[3].ToString();
-                    dateStr = testInfoArray[0].ToString().Replace("/", "");
                     tempArray = prepareToMove(testInfoArray, ownerForm);
 
                     if (tempArray[0] != "")
@@ -641,6 +637,7 @@ namespace GraphicRenamer
                         destDir = tempArray[0];
                         serialNo = tempArray[1];
                         patientID = tempArray[2];
+                        dateStr = tempArray[3];
 
                         #region Move jpg files
                         try { graphicFiles = Directory.GetFiles(sourceDir, "*.jpg", SearchOption.TopDirectoryOnly); }
@@ -818,7 +815,7 @@ namespace GraphicRenamer
         /// <returns>Destination of file moving, serial number</returns>
         public static string[] prepareToMove(string[] testInfoArray, Form ownerForm)
         {
-            string[] ret = { "", "", "" }; //destDir, serialNo, patientID
+            string[] ret = { "", "", "", "" }; //destDir, serialNo, patientID, dateStr
 
             string serialNo = "";
             string patientID = testInfoArray[3].ToString();
@@ -832,10 +829,11 @@ namespace GraphicRenamer
             if (sei.OkCancel == "Cancel")
             { return ret; }
             patientID = sei.patientId;
+            dateStr = sei.dateStr;
             sei.Dispose();
             #endregion
 
-            dateStr = dateStr.Replace("/", "");
+            //dateStr = dateStr.Replace("/", "");
             MainForm.createFolder(Settings.imgDir + @"\" + patientID);
 
             serialNo = MainForm.getSerialNo(Settings.imgDir + @"\" + patientID, patientID, dateStr);
@@ -848,6 +846,7 @@ namespace GraphicRenamer
             ret[0] = Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
             ret[1] = serialNo;
             ret[2] = patientID;
+            ret[3] = dateStr;
             return ret;
         }
 
