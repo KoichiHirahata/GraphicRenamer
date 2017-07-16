@@ -28,11 +28,10 @@ namespace GraphicRenamer
 
             Settings.initiateSettings();
 
-            if (Settings.lang == "ja")
+            if (Settings.lang == "ja" && File.Exists(Application.StartupPath + @"\jp.png"))
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\jp.png"); }
-            else
+            else if (File.Exists(Application.StartupPath + @"\eng.png"))
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\eng.png"); }
-
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
