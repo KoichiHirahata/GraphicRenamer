@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 
 namespace GraphicRenamer
 {
-    #region password
     public class PasswordEncoder
     {
         private PasswordEncoder() { }
@@ -55,5 +54,4 @@ namespace GraphicRenamer
             }
         }
     }
-    #endregion
 }

@@ -52,7 +52,7 @@ namespace GraphicRenamer
                 st.DBSrvIP = DBSrvIP;
                 st.DBSrvPort = DBSrvPort;
                 st.DBconnectID = DBconnectID;
-                st.DBconnectPw = PasswordEncoder.Encrypt(DBconnectPw);
+                st.DBconnectPw = (String.IsNullOrWhiteSpace(DBconnectPw)) ? "" : PasswordEncoder.Encrypt(DBconnectPw);
             }
             else
             {

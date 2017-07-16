@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Text;
 using System.IO;
-using System.Security.Cryptography;
 using Npgsql;
 using System.Windows.Forms;
 
