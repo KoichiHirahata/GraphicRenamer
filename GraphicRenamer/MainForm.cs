@@ -414,51 +414,79 @@ namespace GraphicRenamer
 
         public void readPtDataUsingFe(string patientID)
         {
-            #region Npgsql
-            NpgsqlConnection conn;
             try
             {
-                conn = new NpgsqlConnection("Server=" + Settings.DBSrvIP + ";Port=" + Settings.DBSrvPort + ";User Id=" +
-                    Settings.DBconnectID + ";Password=" + Settings.DBconnectPw + ";Database=endoDB;" + Settings.sslSetting);
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(Properties.Resources.WrongConnectingString, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                using (var conn = new NpgsqlConnection(db.retConnStr()))
+                {
+                    try
+                    { conn.Open(); }
+                    catch (NpgsqlException npe)
+                    {
+                        MessageBox.Show(Properties.Resources.CouldntOpenConn + "\r\n" + npe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        conn.Close();
+                        return;
+                    }
+                    catch (IOException ioe)
+                    {
+                        MessageBox.Show(Properties.Resources.ConnClosed + "\r\n" + ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        conn.Close();
+                        return;
+                    }
 
-            try
-            { conn.Open(); }
-            catch (NpgsqlException)
-            {
-                MessageBox.Show(Properties.Resources.CouldntOpenConn, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn.Close();
-                return;
-            }
-            catch (System.IO.IOException)
-            {
-                MessageBox.Show(Properties.Resources.ConnClosed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn.Close();
-                return;
-            }
-            #endregion
+                    if (conn.State == ConnectionState.Open)
+                    {
 
-            string sql = "SELECT * FROM patient WHERE pt_id='" + patientID + "'";
+                        using (var cmd = new NpgsqlCommand())
+                        {
+                            cmd.Connection = conn;
+                            cmd.CommandText = "select * from get_pt_info_without_login(@p_id)";
+                            cmd.Parameters.AddWithValue("p_id", patientID);
 
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count == 0)
+                            try
+                            {
+                                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
+                                DataTable dt = new DataTable();
+                                da.Fill(dt);
+
+                                conn.Close();
+
+                                if (dt.Rows.Count == 0)
+                                {
+                                    lbPtName.Text = "No data";
+                                    return;
+                                }
+                                else
+                                {
+                                    DataRow row = dt.Rows[0];
+                                    lbPtName.Text = (String.IsNullOrWhiteSpace(row["pt_name"].ToString())) ? "No data" : row["pt_name"].ToString();
+                                    return;
+                                }
+                            }
+                            catch (NpgsqlException nex)
+                            {
+                                MessageBox.Show("[NpgsqlException]\r\n" + nex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                conn.Close();
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(Properties.Resources.CouldntOpenConn, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        conn.Close();
+                        return;
+                    }
+                }
+            }
+            catch (ArgumentException ae)
             {
-                conn.Close();
-                lbPtName.Text = "No data";
+                MessageBox.Show(Properties.Resources.WrongConnectingString + "\r\n" + ae.Message, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else
+            catch (Exception ex)
             {
-                DataRow row = dt.Rows[0];
-                lbPtName.Text = row["pt_name"].ToString();
-                conn.Close();
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
