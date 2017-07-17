@@ -51,7 +51,7 @@ namespace GraphicRenamer
 
         private void exeBtOK()
         {
-            if (tbPtId.Text.Length == 0)
+            if (String.IsNullOrWhiteSpace(tbPtId.Text))
             {
                 MessageBox.Show(Properties.Resources.NoID, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -59,7 +59,7 @@ namespace GraphicRenamer
             OkCancel = "OK";
             patientId = tbPtId.Text;
             dateStr = monthCalendar1.SelectionStart.ToString("yyyyMMdd");
-            this.Close();
+            Close();
         }
 
         #region ReadPatientData

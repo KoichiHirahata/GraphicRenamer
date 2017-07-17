@@ -11,8 +11,8 @@ Format: [ID]_[Date(YYYYMMDD)]_[sequential serial number].[extension]
 To view stored files, please use [PtGraViewer](https://github.com/KoichiHirahata/PtGraViewer).
 
 ##Requirements
-Windows XP or later.  
-.NET Flamework 4.0
+Windows 7 or later.  
+.NET Flamework 4.5.2 or later
 
 ##Usage
 Fill in patient's ID, then drag-and-drop files into the right side of the window.  
