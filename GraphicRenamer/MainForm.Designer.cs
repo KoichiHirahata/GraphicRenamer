@@ -40,6 +40,8 @@
             this.lbPtName = new System.Windows.Forms.Label();
             this.move_label = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.btSearch = new System.Windows.Forms.Button();
+            this.viewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +52,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.verToolStripMenuItem});
+            this.verToolStripMenuItem,
+            this.viewerToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // settingsToolStripMenuItem
@@ -114,11 +117,25 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btSearch
+            // 
+            resources.ApplyResources(this.btSearch, "btSearch");
+            this.btSearch.Name = "btSearch";
+            this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
+            // 
+            // viewerToolStripMenuItem
+            // 
+            this.viewerToolStripMenuItem.Name = "viewerToolStripMenuItem";
+            resources.ApplyResources(this.viewerToolStripMenuItem, "viewerToolStripMenuItem");
+            this.viewerToolStripMenuItem.Click += new System.EventHandler(this.viewerToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btSearch);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.move_label);
             this.Controls.Add(this.lbPtName);
@@ -154,6 +171,8 @@
         private System.Windows.Forms.Label lbPtName;
         private System.Windows.Forms.Label move_label;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btSearch;
+        private System.Windows.Forms.ToolStripMenuItem viewerToolStripMenuItem;
     }
 }
 

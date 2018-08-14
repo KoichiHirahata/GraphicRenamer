@@ -32,6 +32,13 @@ namespace GraphicRenamer
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\jp.png"); }
             else if (File.Exists(Application.StartupPath + @"\eng.png"))
             { pictureBox1.Image = Image.FromFile(Application.StartupPath + @"\eng.png"); }
+
+            #region Pluginが設定されていなかったらbtSearchを表示しない
+            if (!Settings.usePlugin)
+            {
+                btSearch.Visible = false;
+            }
+            #endregion
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -519,7 +526,7 @@ namespace GraphicRenamer
             try
             {
                 if (!Directory.Exists(folderName))
-                { System.IO.Directory.CreateDirectory(folderName); }
+                { Directory.CreateDirectory(folderName); }
             }
             catch (Exception e)
             { MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -532,13 +539,13 @@ namespace GraphicRenamer
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        { System.Diagnostics.Process.Start("http://www.madeinclinic.jp/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2/pt_graphic/graphicrenamer/"); }
+        { Process.Start("http://www.madeinclinic.jp/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2/pt_graphic/graphicrenamer/"); }
 
         public void changeMoveLabelText(string str)
         {
             move_label.Text = str;
             move_label.Visible = true;
-            this.Update();
+            Update();
         }
 
         public void makeInvisibleMoveLable()
@@ -548,6 +555,52 @@ namespace GraphicRenamer
         { tbID.Text = ""; }
 
         private void button1_Click(object sender, EventArgs e)
-        { clearTbPtId(); }
+        {
+            clearTbPtId();
+            lbPtName.Text = "";
+        }
+
+        private void btSearch_Click(object sender, EventArgs e)
+        {
+            Search s = new Search();
+            s.Owner = this;
+            s.ShowDialog();
+
+            if (s.ptId != null)
+            {
+                tbID.Text = s.ptId;
+                readPtDataUsingPlugin(tbID.Text);
+            }
+
+            s.Dispose();
+        }
+
+        private void viewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(Application.StartupPath + "\\PtGraViewer.exe"))
+                {
+                    if (!String.IsNullOrWhiteSpace(tbID.Text))
+                    {
+                        Process p = Process.Start(Application.StartupPath + "\\PtGraViewer.exe", "/pt:" + tbID.Text);
+                    }
+                    else
+                    {
+                        Process p = Process.Start(Application.StartupPath + "\\PtGraViewer.exe");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("File not exist: PtGraViewer.exe", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #region catch
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            #endregion
+        }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="EndoscopyTests.cs" />
     <Compile Include="PasswordEncoderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicRenamer\GraphicRenamer.csproj">
