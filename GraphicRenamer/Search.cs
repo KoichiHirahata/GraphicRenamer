@@ -24,6 +24,11 @@ namespace GraphicRenamer
 
         private void btSearch_Click(object sender, EventArgs e)
         {
+            SearchPt();
+        }
+
+        private void SearchPt()
+        {
             try
             {
                 #region Error check
@@ -96,10 +101,12 @@ namespace GraphicRenamer
                     Close();
                 }
             }
+            #region catch
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            #endregion
         }
     }
 
