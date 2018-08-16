@@ -14,5 +14,6 @@ namespace GraphicRenamer
         public string DBconnectPw { get; set; } //Pw of DB user
         public Boolean usePlugin { get; set; }
         public string ptInfoPlugin { get; set; }
+        public int? IdDigit { get; set; }
     }
 }

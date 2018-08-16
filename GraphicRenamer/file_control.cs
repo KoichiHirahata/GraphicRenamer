@@ -40,7 +40,8 @@ namespace GraphicRenamer
             index = text.IndexOf(itemName);
             if (index == -1)
             {
-                MessageBox.Show("[settings.config]" + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("[settings.config]" + "\r\n" + itemName + "\r\n"
+                    + Properties.Resources.UnsupportedFileType, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "";
             }
             else

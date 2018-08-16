@@ -20,6 +20,7 @@ namespace GraphicRenamer
                 tbDBpw.Text = Settings.DBconnectPw;
                 cbUsePlugin.Checked = Settings.usePlugin;
                 tbPluginLocation.Text = Settings.ptInfoPlugin;
+                tbIdDigit.Text = Settings.IdDigit.ToString();
 
                 if (Settings.imgDir.Length == 0)
                 { tbSaveDir.Text = "(" + Properties.Resources.NotConfigured + ")"; }
@@ -75,6 +76,12 @@ namespace GraphicRenamer
                 MessageBox.Show("[Plugin:]" + Properties.Resources.FileNotExist, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (!String.IsNullOrWhiteSpace(tbIdDigit.Text) && !int.TryParse(tbIdDigit.Text, out int s))
+            {
+                MessageBox.Show("[ID digit(桁数):]" + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             #endregion
 
             if (cbUseFeSrv.Checked)
@@ -89,6 +96,7 @@ namespace GraphicRenamer
                     if (tbDBpw.Visible)
                     { Settings.DBconnectPw = tbDBpw.Text; }
                     Settings.usePlugin = cbUsePlugin.Checked;
+                    Settings.IdDigit = (String.IsNullOrWhiteSpace(tbIdDigit.Text)) ? null : (int?)int.Parse(tbIdDigit.Text);
 
                     Settings.saveSettings();
                     Close();
@@ -100,6 +108,7 @@ namespace GraphicRenamer
                 Settings.useFeDB = cbUseFeSrv.Checked;
                 Settings.usePlugin = cbUsePlugin.Checked;
                 Settings.ptInfoPlugin = tbPluginLocation.Text;
+                Settings.IdDigit = (String.IsNullOrWhiteSpace(tbIdDigit.Text)) ? null : (int?)int.Parse(tbIdDigit.Text);
 
                 Settings.saveSettings();
                 Close();

@@ -20,6 +20,7 @@ namespace GraphicRenamer
         public static string sslSetting { get; set; } //SSL setting string
         public static Boolean usePlugin { get; set; }
         public static string ptInfoPlugin { get; set; } //File location of the plug-in to get patient information
+        public static int? IdDigit { get; set; }
 
         public static void initiateSettings()
         {
@@ -112,6 +113,7 @@ namespace GraphicRenamer
                 DBSrvPort = st.DBSrvPort;
                 DBconnectID = st.DBconnectID;
                 DBconnectPw = PasswordEncoder.Decrypt(st.DBconnectPw);
+                IdDigit = st.IdDigit;
             }
         }
 

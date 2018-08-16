@@ -40,7 +40,6 @@
             this.lbDbID = new System.Windows.Forms.Label();
             this.btTestConnect = new System.Windows.Forms.Button();
             this.btPwSet = new System.Windows.Forms.Button();
-            this.tbDBpw = new System.Windows.Forms.TextBox();
             this.pwState = new System.Windows.Forms.Label();
             this.lbSrvSample = new System.Windows.Forms.Label();
             this.lbDBSrv = new System.Windows.Forms.Label();
@@ -49,6 +48,9 @@
             this.cbUsePlugin = new System.Windows.Forms.CheckBox();
             this.tbPluginLocation = new System.Windows.Forms.TextBox();
             this.btBrowsePlugin = new System.Windows.Forms.Button();
+            this.lbIdDigit = new System.Windows.Forms.Label();
+            this.tbDBpw = new System.Windows.Forms.TextBox();
+            this.tbIdDigit = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tbSaveDir
@@ -117,11 +119,6 @@
             this.btPwSet.UseVisualStyleBackColor = true;
             this.btPwSet.Click += new System.EventHandler(this.btPwSet_Click);
             // 
-            // tbDBpw
-            // 
-            resources.ApplyResources(this.tbDBpw, "tbDBpw");
-            this.tbDBpw.Name = "tbDBpw";
-            // 
             // pwState
             // 
             resources.ApplyResources(this.pwState, "pwState");
@@ -168,10 +165,27 @@
             this.btBrowsePlugin.UseVisualStyleBackColor = true;
             this.btBrowsePlugin.Click += new System.EventHandler(this.btBrowsePlugin_Click);
             // 
+            // lbIdDigit
+            // 
+            resources.ApplyResources(this.lbIdDigit, "lbIdDigit");
+            this.lbIdDigit.Name = "lbIdDigit";
+            // 
+            // tbDBpw
+            // 
+            resources.ApplyResources(this.tbDBpw, "tbDBpw");
+            this.tbDBpw.Name = "tbDBpw";
+            // 
+            // tbIdDigit
+            // 
+            resources.ApplyResources(this.tbIdDigit, "tbIdDigit");
+            this.tbIdDigit.Name = "tbIdDigit";
+            // 
             // SettingForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbIdDigit);
+            this.Controls.Add(this.lbIdDigit);
             this.Controls.Add(this.tbPluginLocation);
             this.Controls.Add(this.btBrowsePlugin);
             this.Controls.Add(this.cbUsePlugin);
@@ -215,7 +229,6 @@
         private System.Windows.Forms.Label lbDbID;
         private System.Windows.Forms.Button btTestConnect;
         private System.Windows.Forms.Button btPwSet;
-        private System.Windows.Forms.TextBox tbDBpw;
         private System.Windows.Forms.Label pwState;
         private System.Windows.Forms.Label lbSrvSample;
         private System.Windows.Forms.Label lbDBSrv;
@@ -224,5 +237,8 @@
         private System.Windows.Forms.CheckBox cbUsePlugin;
         private System.Windows.Forms.TextBox tbPluginLocation;
         private System.Windows.Forms.Button btBrowsePlugin;
+        private System.Windows.Forms.Label lbIdDigit;
+        private System.Windows.Forms.TextBox tbDBpw;
+        private System.Windows.Forms.TextBox tbIdDigit;
     }
 }

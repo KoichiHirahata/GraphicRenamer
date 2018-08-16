@@ -122,14 +122,10 @@
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="tbSaveDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 81</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tbSaveDir.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>23, 65</value>
   </data>
   <data name="tbSaveDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>459, 27</value>
+    <value>345, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tbSaveDir.TabIndex" type="System.Int32, mscorlib">
@@ -145,7 +141,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbSaveDir.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -153,17 +149,15 @@
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 32</value>
-  </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>20, 26</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 20</value>
+    <value>184, 16</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -181,7 +175,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="btCancel.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -190,13 +184,10 @@
     <value>NoControl</value>
   </data>
   <data name="btCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>493, 626</value>
-  </data>
-  <data name="btCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>370, 542</value>
   </data>
   <data name="btCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 39</value>
+    <value>88, 31</value>
   </data>
   <data name="btCancel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -214,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btCancel.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="btSave.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -223,13 +214,10 @@
     <value>NoControl</value>
   </data>
   <data name="btSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 626</value>
-  </data>
-  <data name="btSave.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>264, 542</value>
   </data>
   <data name="btSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 39</value>
+    <value>88, 31</value>
   </data>
   <data name="btSave.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -247,7 +235,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btSave.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="sansho_Bt.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -256,13 +244,10 @@
     <value>NoControl</value>
   </data>
   <data name="sansho_Bt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>499, 80</value>
-  </data>
-  <data name="sansho_Bt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>374, 64</value>
   </data>
   <data name="sansho_Bt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 30</value>
+    <value>73, 24</value>
   </data>
   <data name="sansho_Bt.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -280,19 +265,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;sansho_Bt.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="tbDBsrvPort.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="tbDBsrvPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 380</value>
-  </data>
-  <data name="tbDBsrvPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>183, 304</value>
   </data>
   <data name="tbDBsrvPort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 27</value>
+    <value>176, 23</value>
   </data>
   <data name="tbDBsrvPort.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -307,7 +289,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbDBsrvPort.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="lbDBsrvPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -319,13 +301,10 @@
     <value>NoControl</value>
   </data>
   <data name="lbDBsrvPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 384</value>
-  </data>
-  <data name="lbDBsrvPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>18, 307</value>
   </data>
   <data name="lbDBsrvPort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 20</value>
+    <value>155, 16</value>
   </data>
   <data name="lbDBsrvPort.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -343,19 +322,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbDBsrvPort.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="tbDbID.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="tbDbID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 442</value>
-  </data>
-  <data name="tbDbID.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>183, 354</value>
   </data>
   <data name="tbDbID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 27</value>
+    <value>176, 23</value>
   </data>
   <data name="tbDbID.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -370,7 +346,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbDbID.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="lbDbID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -382,13 +358,10 @@
     <value>NoControl</value>
   </data>
   <data name="lbDbID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 446</value>
-  </data>
-  <data name="lbDbID.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>66, 357</value>
   </data>
   <data name="lbDbID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 20</value>
+    <value>93, 16</value>
   </data>
   <data name="lbDbID.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -406,7 +379,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbDbID.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="btTestConnect.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -415,13 +388,10 @@
     <value>NoControl</value>
   </data>
   <data name="btTestConnect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>500, 535</value>
-  </data>
-  <data name="btTestConnect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>375, 428</value>
   </data>
   <data name="btTestConnect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 39</value>
+    <value>83, 31</value>
   </data>
   <data name="btTestConnect.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -439,7 +409,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btTestConnect.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="btPwSet.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -448,13 +418,10 @@
     <value>NoControl</value>
   </data>
   <data name="btPwSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 535</value>
-  </data>
-  <data name="btPwSet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>28, 428</value>
   </data>
   <data name="btPwSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 39</value>
+    <value>149, 31</value>
   </data>
   <data name="btPwSet.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -472,40 +439,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btPwSet.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="tbDBpw.Font" type="System.Drawing.Font, System.Drawing">
-    <value>MS UI Gothic, 12pt</value>
-  </data>
-  <data name="tbDBpw.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 540</value>
-  </data>
-  <data name="tbDBpw.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="tbDBpw.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
-  </data>
-  <data name="tbDBpw.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 27</value>
-  </data>
-  <data name="tbDBpw.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="tbDBpw.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;tbDBpw.Name" xml:space="preserve">
-    <value>tbDBpw</value>
-  </data>
-  <data name="&gt;&gt;tbDBpw.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbDBpw.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tbDBpw.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="pwState.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -517,13 +451,10 @@
     <value>NoControl</value>
   </data>
   <data name="pwState.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 494</value>
-  </data>
-  <data name="pwState.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>18, 395</value>
   </data>
   <data name="pwState.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 20</value>
+    <value>141, 16</value>
   </data>
   <data name="pwState.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -541,7 +472,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pwState.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="lbSrvSample.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -553,13 +484,10 @@
     <value>NoControl</value>
   </data>
   <data name="lbSrvSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>315, 324</value>
-  </data>
-  <data name="lbSrvSample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>236, 259</value>
   </data>
   <data name="lbSrvSample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
+    <value>115, 16</value>
   </data>
   <data name="lbSrvSample.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -577,7 +505,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbSrvSample.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="lbDBSrv.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -589,13 +517,10 @@
     <value>NoControl</value>
   </data>
   <data name="lbDBSrv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 295</value>
-  </data>
-  <data name="lbDBSrv.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>18, 236</value>
   </data>
   <data name="lbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 20</value>
+    <value>198, 16</value>
   </data>
   <data name="lbDBSrv.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -613,19 +538,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbDBSrv.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="tbDBSrv.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="tbDBSrv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>307, 291</value>
-  </data>
-  <data name="tbDBSrv.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>230, 233</value>
   </data>
   <data name="tbDBSrv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 27</value>
+    <value>176, 23</value>
   </data>
   <data name="tbDBSrv.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -640,7 +562,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbDBSrv.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="cbUseFeSrv.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -649,13 +571,10 @@
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="cbUseFeSrv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 155</value>
-  </data>
-  <data name="cbUseFeSrv.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>21, 124</value>
   </data>
   <data name="cbUseFeSrv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 24</value>
+    <value>287, 20</value>
   </data>
   <data name="cbUseFeSrv.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -673,7 +592,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbUseFeSrv.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="cbUsePlugin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -685,13 +604,10 @@
     <value>NoControl</value>
   </data>
   <data name="cbUsePlugin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 200</value>
-  </data>
-  <data name="cbUsePlugin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>21, 160</value>
   </data>
   <data name="cbUsePlugin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 24</value>
+    <value>107, 20</value>
   </data>
   <data name="cbUsePlugin.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -709,19 +625,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbUsePlugin.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="tbPluginLocation.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
   <data name="tbPluginLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 240</value>
-  </data>
-  <data name="tbPluginLocation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>23, 192</value>
   </data>
   <data name="tbPluginLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>459, 27</value>
+    <value>345, 23</value>
   </data>
   <data name="tbPluginLocation.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -736,7 +649,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbPluginLocation.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="btBrowsePlugin.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
@@ -745,13 +658,10 @@
     <value>NoControl</value>
   </data>
   <data name="btBrowsePlugin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>499, 239</value>
-  </data>
-  <data name="btBrowsePlugin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>374, 191</value>
   </data>
   <data name="btBrowsePlugin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 30</value>
+    <value>73, 24</value>
   </data>
   <data name="btBrowsePlugin.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -769,19 +679,103 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btBrowsePlugin.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbIdDigit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbIdDigit.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="lbIdDigit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbIdDigit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 498</value>
+  </data>
+  <data name="lbIdDigit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="lbIdDigit.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="lbIdDigit.Text" xml:space="preserve">
+    <value>ID digit:</value>
+  </data>
+  <data name="&gt;&gt;lbIdDigit.Name" xml:space="preserve">
+    <value>lbIdDigit</value>
+  </data>
+  <data name="&gt;&gt;lbIdDigit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbIdDigit.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbIdDigit.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="tbDBpw.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbDBpw.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 432</value>
+  </data>
+  <data name="tbDBpw.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="tbDBpw.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 23</value>
+  </data>
+  <data name="tbDBpw.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tbDBpw.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Name" xml:space="preserve">
+    <value>tbDBpw</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbDBpw.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="tbIdDigit.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="tbIdDigit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 495</value>
+  </data>
+  <data name="tbIdDigit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 23</value>
+  </data>
+  <data name="tbIdDigit.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;tbIdDigit.Name" xml:space="preserve">
+    <value>tbIdDigit</value>
+  </data>
+  <data name="&gt;&gt;tbIdDigit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbIdDigit.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbIdDigit.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 15</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 686</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>477, 592</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>

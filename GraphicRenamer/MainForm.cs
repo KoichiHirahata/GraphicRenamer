@@ -8,6 +8,7 @@ using System.Collections;
 using Npgsql;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace GraphicRenamer
 {
@@ -412,6 +413,15 @@ namespace GraphicRenamer
         #region ReadPatientData
         private void tbID_KeyUp(object sender, KeyEventArgs e)
         {
+            if (Settings.IdDigit != null)
+            {
+                if (tbID.Text.Length != Settings.IdDigit)
+                {
+                    lbPtName.Text = "";
+                    return;
+                }
+            }
+
             if (Settings.useFeDB)
             { readPtDataUsingFe(tbID.Text); }
             if (Settings.usePlugin && !String.IsNullOrWhiteSpace(Settings.ptInfoPlugin))
@@ -484,6 +494,7 @@ namespace GraphicRenamer
                     }
                 }
             }
+            #region catch
             catch (ArgumentException ae)
             {
                 MessageBox.Show(Properties.Resources.WrongConnectingString + "\r\n" + ae.Message, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -494,6 +505,7 @@ namespace GraphicRenamer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            #endregion
         }
 
         public void readPtDataUsingPlugin(string patienID)
@@ -516,6 +528,11 @@ namespace GraphicRenamer
 
             if (String.IsNullOrWhiteSpace(output))
             { lbPtName.Text = "No data"; }
+            else if (!Regex.IsMatch(output, "Patient Name:"))
+            {
+                lbPtName.Text = "No data";
+                //lbPtName.Text = output;
+            }
             else
             { lbPtName.Text = file_control.readItemSettingFromText(output, "Patient Name:"); }
         }
