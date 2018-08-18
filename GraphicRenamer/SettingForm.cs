@@ -25,7 +25,7 @@ namespace GraphicRenamer
                 if (Settings.imgDir.Length == 0)
                 { tbSaveDir.Text = "(" + Properties.Resources.NotConfigured + ")"; }
                 else
-                { this.tbSaveDir.Text = Settings.imgDir; }
+                { tbSaveDir.Text = Settings.imgDir; }
             }
             else
             { tbSaveDir.Text = "(" + Properties.Resources.InitialSetting + ")"; }
@@ -139,7 +139,9 @@ namespace GraphicRenamer
         private void cbUseFeSrv_CheckedChanged(object sender, EventArgs e)
         {
             if (cbUseFeSrv.Checked)
-            { cbUsePlugin.Checked = false; }
+            {
+                cbUsePlugin.Checked = false;
+            }
             setFeDbPropertyVisibleOrNot();
         }
 

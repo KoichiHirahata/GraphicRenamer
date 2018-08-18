@@ -64,6 +64,7 @@ namespace GraphicRenamer
             }
             st.usePlugin = usePlugin;
             st.ptInfoPlugin = ptInfoPlugin;
+            st.IdDigit = IdDigit;
 
             XmlSerializer xserializer = new XmlSerializer(typeof(Settings4file));
             //Open file
