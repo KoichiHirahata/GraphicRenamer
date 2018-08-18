@@ -413,128 +413,7 @@ namespace GraphicRenamer
         #region ReadPatientData
         private void tbID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Settings.IdDigit != null)
-            {
-                if (tbID.Text.Length != Settings.IdDigit)
-                {
-                    lbPtName.Text = "";
-                    return;
-                }
-            }
-
-            if (Settings.useFeDB)
-            { readPtDataUsingFe(tbID.Text); }
-            if (Settings.usePlugin && !String.IsNullOrWhiteSpace(Settings.ptInfoPlugin))
-            { readPtDataUsingPlugin(tbID.Text); }
-        }
-
-        public void readPtDataUsingFe(string patientID)
-        {
-            try
-            {
-                using (var conn = new NpgsqlConnection(db.retConnStr()))
-                {
-                    try
-                    { conn.Open(); }
-                    catch (NpgsqlException npe)
-                    {
-                        MessageBox.Show(Properties.Resources.CouldntOpenConn + "\r\n" + npe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        conn.Close();
-                        return;
-                    }
-                    catch (IOException ioe)
-                    {
-                        MessageBox.Show(Properties.Resources.ConnClosed + "\r\n" + ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        conn.Close();
-                        return;
-                    }
-
-                    if (conn.State == ConnectionState.Open)
-                    {
-
-                        using (var cmd = new NpgsqlCommand())
-                        {
-                            cmd.Connection = conn;
-                            cmd.CommandText = "select * from get_pt_info_without_login(@p_id)";
-                            cmd.Parameters.AddWithValue("p_id", patientID);
-
-                            try
-                            {
-                                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
-                                DataTable dt = new DataTable();
-                                da.Fill(dt);
-
-                                conn.Close();
-
-                                if (dt.Rows.Count == 0)
-                                {
-                                    lbPtName.Text = "No data";
-                                    return;
-                                }
-                                else
-                                {
-                                    DataRow row = dt.Rows[0];
-                                    lbPtName.Text = (String.IsNullOrWhiteSpace(row["pt_name"].ToString())) ? "No data" : row["pt_name"].ToString();
-                                    return;
-                                }
-                            }
-                            catch (NpgsqlException nex)
-                            {
-                                MessageBox.Show("[NpgsqlException]\r\n" + nex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                conn.Close();
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(Properties.Resources.CouldntOpenConn, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        conn.Close();
-                        return;
-                    }
-                }
-            }
-            #region catch
-            catch (ArgumentException ae)
-            {
-                MessageBox.Show(Properties.Resources.WrongConnectingString + "\r\n" + ae.Message, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            #endregion
-        }
-
-        public void readPtDataUsingPlugin(string patienID)
-        {
-            string command = Settings.ptInfoPlugin;
-
-            ProcessStartInfo psInfo = new ProcessStartInfo();
-
-            psInfo.FileName = command;
-            psInfo.Arguments = patienID;
-            psInfo.CreateNoWindow = true; // Do not open console window
-            psInfo.UseShellExecute = false; // Do not use shell
-
-            psInfo.RedirectStandardOutput = true;
-
-            Process p = Process.Start(psInfo);
-            string output = p.StandardOutput.ReadToEnd();
-
-            output = output.Replace("\r\r\n", "\n"); // Replace new line code
-
-            if (String.IsNullOrWhiteSpace(output))
-            { lbPtName.Text = "No data"; }
-            else if (!Regex.IsMatch(output, "Patient Name:"))
-            {
-                lbPtName.Text = "No data";
-                //lbPtName.Text = output;
-            }
-            else
-            { lbPtName.Text = file_control.readItemSettingFromText(output, "Patient Name:"); }
+            lbPtName.Text = db.GetPtName(tbID.Text);
         }
         #endregion
 
@@ -586,7 +465,7 @@ namespace GraphicRenamer
             if (s.ptId != null)
             {
                 tbID.Text = s.ptId;
-                readPtDataUsingPlugin(tbID.Text);
+                lbPtName.Text = db.GetPtName(tbID.Text);
             }
 
             s.Dispose();

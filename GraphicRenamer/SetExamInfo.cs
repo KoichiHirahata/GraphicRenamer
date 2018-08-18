@@ -20,12 +20,12 @@ namespace GraphicRenamer
             lbStartTime.Text = startTime;
             lbEndTime.Text = endTime;
 
-            if (Settings.useFeDB)
+            if (Settings.useFeDB||Settings.usePlugin)
             {
                 lbNameDbCaption.Visible = true;
                 lbPtNameDB.Text = "";
                 lbPtNameDB.Visible = true;
-                readPtData(ptID);
+                lbPtNameDB.Text = db.GetPtName(ptID);
             }
             else
             {
@@ -65,57 +65,9 @@ namespace GraphicRenamer
         #region ReadPatientData
         private void tbPtId_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Settings.useFeDB)
-            { readPtData(tbPtId.Text); }
-        }
-
-        public void readPtData(string patientID)
-        {
-            #region Npgsql
-            NpgsqlConnection conn;
-            try
+            if (Settings.useFeDB||Settings.usePlugin)
             {
-                conn = new NpgsqlConnection("Server=" + Settings.DBSrvIP + ";Port=" + Settings.DBSrvPort + ";User Id=" +
-                    Settings.DBconnectID + ";Password=" + Settings.DBconnectPw + ";Database=endoDB;" + Settings.sslSetting);
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(Properties.Resources.WrongConnectingString, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            { conn.Open(); }
-            catch (NpgsqlException)
-            {
-                MessageBox.Show(Properties.Resources.CouldntOpenConn, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn.Close();
-                return;
-            }
-            catch (System.IO.IOException)
-            {
-                MessageBox.Show(Properties.Resources.ConnClosed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn.Close();
-                return;
-            }
-            #endregion
-
-            string sql = "SELECT * FROM patient WHERE pt_id='" + patientID + "'";
-
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count == 0)
-            {
-                conn.Close();
-                lbPtNameDB.Text = "No data";
-                return;
-            }
-            else
-            {
-                DataRow row = dt.Rows[0];
-                lbPtNameDB.Text = row["pt_name"].ToString();
-                conn.Close();
+                lbPtNameDB.Text = db.GetPtName(tbPtId.Text);
             }
         }
         #endregion
