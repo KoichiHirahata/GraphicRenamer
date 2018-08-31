@@ -227,6 +227,10 @@
   <data name="tbID.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tbID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Disable</value>
+  </data>
   <data name="tbID.Location" type="System.Drawing.Point, System.Drawing">
     <value>55, 261</value>
   </data>
@@ -275,7 +279,6 @@
   <data name="lbPtName.Font" type="System.Drawing.Font, System.Drawing">
     <value>MS UI Gothic, 12pt</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lbPtName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>

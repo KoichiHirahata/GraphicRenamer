@@ -454,6 +454,7 @@ namespace GraphicRenamer
         {
             clearTbPtId();
             lbPtName.Text = "";
+            tbID.Focus();
         }
 
         private void btSearch_Click(object sender, EventArgs e)

@@ -33,6 +33,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.tbID = new System.Windows.Forms.TextBox();
@@ -41,7 +42,6 @@
             this.move_label = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btSearch = new System.Windows.Forms.Button();
-            this.viewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +73,12 @@
             this.verToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.verToolStripMenuItem.Name = "verToolStripMenuItem";
             resources.ApplyResources(this.verToolStripMenuItem, "verToolStripMenuItem");
+            // 
+            // viewerToolStripMenuItem
+            // 
+            this.viewerToolStripMenuItem.Name = "viewerToolStripMenuItem";
+            resources.ApplyResources(this.viewerToolStripMenuItem, "viewerToolStripMenuItem");
+            this.viewerToolStripMenuItem.Click += new System.EventHandler(this.viewerToolStripMenuItem_Click);
             // 
             // monthCalendar1
             // 
@@ -123,12 +129,6 @@
             this.btSearch.Name = "btSearch";
             this.btSearch.UseVisualStyleBackColor = true;
             this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
-            // 
-            // viewerToolStripMenuItem
-            // 
-            this.viewerToolStripMenuItem.Name = "viewerToolStripMenuItem";
-            resources.ApplyResources(this.viewerToolStripMenuItem, "viewerToolStripMenuItem");
-            this.viewerToolStripMenuItem.Click += new System.EventHandler(this.viewerToolStripMenuItem_Click);
             // 
             // MainForm
             // 
