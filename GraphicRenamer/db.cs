@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Npgsql;
 
 namespace GraphicRenamer
 {
