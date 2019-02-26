@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using Npgsql;
 using System.Windows.Forms;
-using Npgsql;
 using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
