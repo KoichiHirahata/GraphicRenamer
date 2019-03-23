@@ -60,153 +60,120 @@ namespace GraphicRenamer
 
         private void pictureBox1_DragDrop(object sender, DragEventArgs e)
         {
-            string[] gFiles = e.Data.GetData(DataFormats.FileDrop) as string[];
-
-            #region Error check
-            if (string.IsNullOrWhiteSpace(Settings.imgDir))
+            try
             {
-                MessageBox.Show("[" + Properties.Resources.InitialSetting + "]" + Properties.Resources.NotConfigured, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                string[] gFiles = e.Data.GetData(DataFormats.FileDrop) as string[];
 
-            if (!Directory.Exists(Settings.imgDir))
-            {
-                MessageBox.Show("[" + Properties.Resources.InitialSetting + "]" + Properties.Resources.FolderNotExist, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+                #region Error check
+                #region If user use FindingsEditor or Plugins, check patient is blank or 'No data'
+                if (Settings.useFeDB || Settings.useFeDB)
+                {
+                    if (lbPtName.Text == "" || lbPtName.Text == "No data")
+                    {
+                        MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                #endregion
 
-            if (!isSameType(gFiles))
-            { return; }
-            #endregion
+                if (string.IsNullOrWhiteSpace(Settings.imgDir))
+                {
+                    MessageBox.Show("[" + Properties.Resources.InitialSetting + "]" + Properties.Resources.NotConfigured, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            //Convert gFiles from array to ArrayList, then sort it
-            ArrayList gFilesArray = new ArrayList();
-            gFilesArray.AddRange(gFiles);
-            gFilesArray.Sort();
+                if (!Directory.Exists(Settings.imgDir))
+                {
+                    MessageBox.Show("[" + Properties.Resources.InitialSetting + "]" + Properties.Resources.FolderNotExist, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-            #region Endoscopy Folder
-            if (Directory.Exists(gFilesArray[0].ToString()))
-            {
-                if (MessageBox.Show(Properties.Resources.IgnoreTextBox, "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
+                if (!isSameType(gFiles))
                 { return; }
+                #endregion
 
+                //Convert gFiles from array to ArrayList, then sort it
+                ArrayList gFilesArray = new ArrayList();
+                gFilesArray.AddRange(gFiles);
+                gFilesArray.Sort();
 
-                for (int i = 0; i < gFilesArray.Count; i++)
+                #region Endoscopy Folder
+                if (Directory.Exists(gFilesArray[0].ToString()))
                 {
-                    Endoscopy.moveImagesAndFiles(gFilesArray[i].ToString(), this);
-                }
-                return;
-            }
-            #endregion
+                    if (MessageBox.Show(Properties.Resources.IgnoreTextBox, "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
+                    { return; }
 
-            #region Error check for tbID
-            if (tbID.Text.Length == 0)
-            {
-                MessageBox.Show(Properties.Resources.NoID, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
-            if (isWrongFolderName(tbID.Text))
-            {
-                MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            #endregion
-
-            string imgPath = Settings.imgDir + @"\" + tbID.Text;
-            createFolder(imgPath);
-
-            string serialNo = getSerialNo(imgPath, tbID.Text, monthCalendar1.SelectionStart.ToString("yyyyMMdd"));
-            #region Error check of serialNo
-            if (serialNo == "error")
-            {
-                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            #endregion
-
-            #region 1File
-            if (gFilesArray.Count == 1)
-            {
-                if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
-                {
-                    try
-                    {
-                        File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
-                        logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
-                        logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
-                    }
-                    #region catch
-                    catch (IOException)
-                    {
-                        MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    catch (ArgumentException)
-                    {
-                        MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    #endregion
-                }
-                else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
-                {
-                    try
-                    {
-                        File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
-                        logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
-                        logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
-                    }
-                    #region catch
-                    catch (IOException)
-                    {
-                        MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    catch (ArgumentException)
-                    {
-                        MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    #endregion
-                }
-            }
-            #endregion
-            #region More files
-            else
-            {
-                string subFolderName = imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo;
-                createFolder(subFolderName);
-                logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), subFolderName);
-
-                #region JPEG
-                if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
-                {
                     for (int i = 0; i < gFilesArray.Count; i++)
                     {
-                        #region Error check
-                        if (plusZero((i + 1).ToString(), 3) == "Error")
+                        Endoscopy.moveImagesAndFiles(gFilesArray[i].ToString(), this);
+                    }
+                    return;
+                }
+                #endregion
+
+                #region Error check for tbID
+                if (tbID.Text.Length == 0)
+                {
+                    MessageBox.Show(Properties.Resources.NoID, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (isWrongFolderName(tbID.Text))
+                {
+                    MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                #endregion
+
+                string imgPath = Settings.imgDir + @"\" + tbID.Text;
+                createFolder(imgPath);
+
+                string serialNo = getSerialNo(imgPath, tbID.Text, monthCalendar1.SelectionStart.ToString("yyyyMMdd"));
+                #region Error check of serialNo
+                if (serialNo == "error")
+                {
+                    MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                #endregion
+
+                #region 1File
+                if (gFilesArray.Count == 1)
+                {
+                    if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+                    {
+                        try
                         {
-                            MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         #endregion
+                    }
+                    else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+                    {
                         try
                         {
-                            File.Move(gFilesArray[i].ToString(),
-                              subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
-                            logFileName(Path.GetFileName(gFilesArray[i].ToString()),
-                                tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
                         }
                         #region catch
                         catch (IOException)
@@ -228,45 +195,99 @@ namespace GraphicRenamer
                     }
                 }
                 #endregion
-                #region PDF
-                else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+                #region More files
+                else
                 {
-                    for (int i = 0; i < gFilesArray.Count; i++)
+                    string subFolderName = imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo;
+                    createFolder(subFolderName);
+                    logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), subFolderName);
+
+                    #region JPEG
+                    if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
                     {
-                        #region Error check
-                        if (plusZero((i + 1).ToString(), 3) == "Error")
+                        for (int i = 0; i < gFilesArray.Count; i++)
                         {
-                            MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            #region Error check
+                            if (plusZero((i + 1).ToString(), 3) == "Error")
+                            {
+                                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            #endregion
+                            try
+                            {
+                                File.Move(gFilesArray[i].ToString(),
+                                  subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
+                                logFileName(Path.GetFileName(gFilesArray[i].ToString()),
+                                    tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
+                            }
+                            #region catch
+                            catch (IOException)
+                            {
+                                MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            #endregion
                         }
-                        #endregion
-                        try
-                        {
-                            File.Move(gFilesArray[i].ToString(),
-                                subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".pdf");
-                            logFileName(Path.GetFileName(gFilesArray[i].ToString()),
-                                tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".pdf");
-                        }
-                        #region catch
-                        catch (IOException)
-                        {
-                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        catch (ArgumentException)
-                        {
-                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        #endregion
                     }
+                    #endregion
+                    #region PDF
+                    else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+                    {
+                        for (int i = 0; i < gFilesArray.Count; i++)
+                        {
+                            #region Error check
+                            if (plusZero((i + 1).ToString(), 3) == "Error")
+                            {
+                                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            #endregion
+                            try
+                            {
+                                File.Move(gFilesArray[i].ToString(),
+                                    subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".pdf");
+                                logFileName(Path.GetFileName(gFilesArray[i].ToString()),
+                                    tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".pdf");
+                            }
+                            #region catch
+                            catch (IOException)
+                            {
+                                MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            #endregion
+                        }
+                    }
+                    #endregion
                 }
                 #endregion
+            }
+            #region catch
+            catch (Exception ex)
+            {
+                MessageBox.Show("[pictureBox1_DragDrop] " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("[pictureBox1_DragDrop] " + ex.Message);
             }
             #endregion
         }
