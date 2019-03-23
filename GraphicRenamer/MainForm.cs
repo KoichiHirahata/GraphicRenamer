@@ -68,7 +68,7 @@ namespace GraphicRenamer
                 #region If user use FindingsEditor or Plugins, check patient is blank or 'No data'
                 if (Settings.useFeDB || Settings.useFeDB)
                 {
-                    if (lbPtName.Text == "" || lbPtName.Text == "No data")
+                    if (lbPtName.Text == "" || lbPtName.Text == "No data" || lbPtName.Text == null)
                     {
                         MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
