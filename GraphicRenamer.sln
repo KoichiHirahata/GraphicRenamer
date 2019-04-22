@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicRenamer", "GraphicRenamer\GraphicRenamer.csproj", "{4DBCEC9A-8597-4DC2-8C2F-D54A6E7F2071}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicRenamerTests", "GraphicRenamerTests\GraphicRenamerTests.csproj", "{CC6FA394-D2CA-46E9-8C8A-22F714F49D89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conv1to2", "Conv1to2\Conv1to2.csproj", "{28B827F2-F71B-4491-94F7-7DE633851F4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{CC6FA394-D2CA-46E9-8C8A-22F714F49D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC6FA394-D2CA-46E9-8C8A-22F714F49D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC6FA394-D2CA-46E9-8C8A-22F714F49D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E223699-44C1-4E06-AFB8-811C49AC5654}
 	EndGlobalSection
 EndGlobal
