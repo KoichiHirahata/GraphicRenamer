@@ -88,6 +88,12 @@ namespace GraphicRenamer
                     return;
                 }
 
+                if (file_control.CheckID(tbID.Text) == false)
+                {
+                    MessageBox.Show(Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 if (!isSameType(gFiles))
                 { return; }
                 #endregion
@@ -126,7 +132,8 @@ namespace GraphicRenamer
                 }
                 #endregion
 
-                string imgPath = Settings.imgDir + @"\" + tbID.Text;
+                //string imgPath = Settings.imgDir + @"\" + tbID.Text;
+                string imgPath = Settings.imgDir + file_control.MakeDirPath(tbID.Text) ;
                 createFolder(imgPath);
 
                 string serialNo = getSerialNo(imgPath, tbID.Text, monthCalendar1.SelectionStart.ToString("yyyyMMdd"));

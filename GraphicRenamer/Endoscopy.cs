@@ -843,7 +843,7 @@ namespace GraphicRenamer
                 return ret;
             }
             MainForm.createFolder(Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo);
-            ret[0] = Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
+            ret[0] = Settings.imgDir + file_control.MakeDirPath(patientID) + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
             ret[1] = serialNo;
             ret[2] = patientID;
             ret[3] = dateStr;
