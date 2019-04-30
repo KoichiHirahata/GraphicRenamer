@@ -834,7 +834,7 @@ namespace GraphicRenamer
             #endregion
 
             //dateStr = dateStr.Replace("/", "");
-            MainForm.createFolder(Settings.imgDir + @"\" + patientID);
+            MainForm.createFolder(Settings.imgDir + file_control.MakeDirPath(patientID));
 
             serialNo = MainForm.getSerialNo(Settings.imgDir + @"\" + patientID, patientID, dateStr);
             if (serialNo == "error")
