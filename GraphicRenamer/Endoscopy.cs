@@ -836,13 +836,14 @@ namespace GraphicRenamer
             //dateStr = dateStr.Replace("/", "");
             MainForm.createFolder(Settings.imgDir + file_control.MakeDirPath(patientID));
 
-            serialNo = MainForm.getSerialNo(Settings.imgDir + @"\" + patientID, patientID, dateStr);
+            serialNo = MainForm.getSerialNo(Settings.imgDir + file_control.MakeDirPath(patientID), patientID, dateStr);
             if (serialNo == "error")
             {
                 MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return ret;
             }
-            MainForm.createFolder(Settings.imgDir + @"\" + patientID + @"\" + patientID + "_" + dateStr + "_" + serialNo);
+            //シリアルナンバーを付加したフォルダを作成
+            MainForm.createFolder(Settings.imgDir + file_control.MakeDirPath(patientID) + @"\" + patientID + "_" + dateStr + "_" + serialNo);
             ret[0] = Settings.imgDir + file_control.MakeDirPath(patientID) + @"\" + patientID + "_" + dateStr + "_" + serialNo; //destDir
             ret[1] = serialNo;
             ret[2] = patientID;
