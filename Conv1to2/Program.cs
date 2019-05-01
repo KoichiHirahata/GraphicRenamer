@@ -94,7 +94,7 @@ namespace Conv1to2
 
         private static void WirteProgress()
         {
-            // 進むパーセンテージを表示
+            // 進捗を表示
             Console.Write("コピー進捗：" + nowCount + " / " + totalCount);
 
             // カーソル位置を初期化
