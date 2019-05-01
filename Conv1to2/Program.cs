@@ -26,19 +26,22 @@ namespace Conv1to2
                 newPath = parsed.Value.NewPath;
             }
 
-            //newPathにフォルダ作成
-            if (Directory.Exists(newPath) == false)
+            if(String.IsNullOrWhiteSpace(oldPath)==false && String.IsNullOrWhiteSpace(newPath) == false)
             {
-                Directory.CreateDirectory(newPath);
-            }
-            var oldSubDirPaths = Directory.GetDirectories(oldPath);//old内のフォルダ名を取得する
-            totalCount = Directory.GetFiles(oldPath, "*", SearchOption.AllDirectories).Count();//全ファイル数
+                //newPathにフォルダ作成
+                if (Directory.Exists(newPath) == false)
+                {
+                    Directory.CreateDirectory(newPath);
+                }
+                var oldSubDirPaths = Directory.GetDirectories(oldPath);//old内のフォルダ名を取得する
+                totalCount = Directory.GetFiles(oldPath, "*", SearchOption.AllDirectories).Count();//全ファイル数
 
-            foreach (var oldSubPath in oldSubDirPaths)
-            {
-                var dirName = Path.GetFileName(oldSubPath);//フルパスの最後のフォルダ名を取得
-                var newDirPath = newPath + MakeDirPath(dirName);
-                DirectoryCopy(oldSubPath, newDirPath);//oldPathからnewDirPathにデータコピー
+                foreach (var oldSubPath in oldSubDirPaths)
+                {
+                    var dirName = Path.GetFileName(oldSubPath);//フルパスの最後のフォルダ名を取得
+                    var newDirPath = newPath + MakeDirPath(dirName);
+                    DirectoryCopy(oldSubPath, newDirPath);//oldPathからnewDirPathにデータコピー
+                }
             }
         }
 
