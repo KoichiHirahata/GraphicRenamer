@@ -11,6 +11,9 @@ namespace Conv1to2
 {
     class Program
     {
+        private static int totalCount = 0;
+        private static int nowCount = 0;
+
         static void Main(string[] args)
         {
             var result = Parser.Default.ParseArguments<Option>(args);
@@ -29,6 +32,7 @@ namespace Conv1to2
                 Directory.CreateDirectory(newPath);
             }
             var oldSubDirPaths = Directory.GetDirectories(oldPath);//old内のフォルダ名を取得する
+            totalCount = Directory.GetFiles(oldPath, "*", SearchOption.AllDirectories).Count();//全ファイル数
 
             foreach (var oldSubPath in oldSubDirPaths)
             {
@@ -67,6 +71,8 @@ namespace Conv1to2
                 //同じファイルが存在していたら、上書きしない
                 try
                 {
+                    nowCount++;
+                    WirteProgress();
                     fileInfo.CopyTo(destinationDirectory.FullName + @"\" + fileInfo.Name, false);
 
                 }
@@ -83,7 +89,17 @@ namespace Conv1to2
             }
         }
 
+        private static void WirteProgress()
+        {
+            // 進むパーセンテージを表示
+            Console.Write("コピー進捗：" + nowCount + " / " + totalCount);
 
+            // カーソル位置を初期化
+            Console.SetCursorPosition(0, Console.CursorTop);
+
+            // （進行が見えるように）処理を100ミリ秒間休止
+            //System.Threading.Thread.Sleep(100);
+        }
         /// <summary>
         /// 桁数÷4の余りの数だけIDの先頭から数字を取ってきて、その名前のフォルダを利用する（なければ作る）（例: 54321 だったら 5 ）
         /// その下にその次の4桁の番号の名前のフォルダを利用する（なければ作る）（例: 54321 だったら 4321 ）
