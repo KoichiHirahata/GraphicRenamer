@@ -22,14 +22,67 @@ namespace Conv1to2
                 oldPath = parsed.Value.OldPath;
                 newPath = parsed.Value.NewPath;
             }
-            //var a = Path.GetFileName(oldPath);//フルパスの最後のフォルダ名を取得
 
-            //old内のフォルダ名を取得する
             //newPathにフォルダ作成
-            //Directory.CreateDirectory();
-            //oldPathからデータコピー
+            if (Directory.Exists(newPath) == false)
+            {
+                Directory.CreateDirectory(newPath);
+            }
+            var oldSubDirPaths = Directory.GetDirectories(oldPath);//old内のフォルダ名を取得する
 
+            foreach (var oldSubPath in oldSubDirPaths)
+            {
+                var dirName = Path.GetFileName(oldSubPath);//フルパスの最後のフォルダ名を取得
+                var newDirPath = newPath + MakeDirPath(dirName);
+                DirectoryCopy(oldSubPath, newDirPath);//oldPathからnewDirPathにデータコピー
+            }
         }
+
+
+        public static void OutputLog(string _logText)
+        {
+            using (var sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "log.txt", true))
+            {
+                var datetime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                sw.WriteLine(datetime+", " + _logText);
+                sw.Close();
+            }
+        }
+
+        public static void DirectoryCopy(string sourcePath, string destinationPath)
+        {
+            DirectoryInfo sourceDirectory = new DirectoryInfo(sourcePath);
+            DirectoryInfo destinationDirectory = new DirectoryInfo(destinationPath);
+
+            //コピー先のディレクトリがなければ作成する
+            if (destinationDirectory.Exists == false)
+            {
+                destinationDirectory.Create();
+                destinationDirectory.Attributes = sourceDirectory.Attributes;
+            }
+
+            //ファイルのコピー
+            foreach (FileInfo fileInfo in sourceDirectory.GetFiles())
+            {
+                //同じファイルが存在していたら、上書きしない
+                try
+                {
+                    fileInfo.CopyTo(destinationDirectory.FullName + @"\" + fileInfo.Name, false);
+
+                }
+                catch (IOException)
+                {
+                    OutputLog("コピー先に既にファイルが存在しています。："+fileInfo.FullName);
+                }
+            }
+
+            //ディレクトリのコピー（再帰を使用）
+            foreach (DirectoryInfo directoryInfo in sourceDirectory.GetDirectories())
+            {
+                DirectoryCopy(directoryInfo.FullName, destinationDirectory.FullName + @"\" + directoryInfo.Name);
+            }
+        }
+
 
         /// <summary>
         /// 桁数÷4の余りの数だけIDの先頭から数字を取ってきて、その名前のフォルダを利用する（なければ作る）（例: 54321 だったら 5 ）
