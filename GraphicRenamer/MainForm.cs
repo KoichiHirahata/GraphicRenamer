@@ -65,17 +65,6 @@ namespace GraphicRenamer
                 string[] gFiles = e.Data.GetData(DataFormats.FileDrop) as string[];
 
                 #region Error check
-                #region If user use FindingsEditor or Plugins, check patient is blank or 'No data'
-                if (Settings.useFeDB || Settings.useFeDB)
-                {
-                    if (lbPtName.Text == "" || lbPtName.Text == "No data" || lbPtName.Text == null)
-                    {
-                        MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                #endregion
-
                 if (string.IsNullOrWhiteSpace(Settings.imgDir))
                 {
                     MessageBox.Show("[" + Properties.Resources.InitialSetting + "]" + Properties.Resources.NotConfigured, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -130,9 +119,19 @@ namespace GraphicRenamer
                     MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                #region If user use FindingsEditor or Plugins, check patient is blank or 'No data'
+                if (Settings.useFeDB || Settings.useFeDB)
+                {
+                    if (lbPtName.Text == "" || lbPtName.Text == "No data" || lbPtName.Text == null)
+                    {
+                        MessageBox.Show("[ID] " + Properties.Resources.WrongText, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                #endregion
                 #endregion
 
-                //string imgPath = Settings.imgDir + @"\" + tbID.Text;
                 string imgPath = Settings.imgDir + file_control.MakeDirPath(tbID.Text) ;
                 createFolder(imgPath);
 
