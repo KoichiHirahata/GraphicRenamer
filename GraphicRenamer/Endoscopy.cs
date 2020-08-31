@@ -227,9 +227,10 @@ namespace GraphicRenamer
 
             switch (determinFolderType(sourceDir))
             {
-                #region VP-4450HD, VP-4400
+                #region VP-4450HD, VP-4400, VP-7000
                 case "VP-4450HD":
                 case "VP-4400":
+                case "VP-7000":
                     string[] infs = Directory.GetFiles(sourceDir, "*.inf");
 
                     if (File.Exists(infs[0]))
