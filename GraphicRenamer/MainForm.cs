@@ -144,7 +144,7 @@ namespace GraphicRenamer
                 }
                 #endregion
 
-                #region 1File
+                // 1File
                 if (gFilesArray.Count == 1)
                 {
                     if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
@@ -200,26 +200,26 @@ namespace GraphicRenamer
                         #endregion
                     }
                 }
-                #endregion
-                #region More files
+                // more file
                 else
                 {
                     string subFolderName = imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo;
                     createFolder(subFolderName);
                     logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), subFolderName);
 
-                    #region JPEG
-                    if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+                    //JPEG
+                    var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
+
+                    if ((extension == ".jpg") || (extension == ".jpeg"))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
-                            #region Error check
                             if (plusZero((i + 1).ToString(), 3) == "Error")
                             {
                                 MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                            #endregion
+
                             try
                             {
                                 File.Move(gFilesArray[i].ToString(),
@@ -227,7 +227,6 @@ namespace GraphicRenamer
                                 logFileName(Path.GetFileName(gFilesArray[i].ToString()),
                                     tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
                             }
-                            #region catch
                             catch (IOException)
                             {
                                 MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -243,12 +242,10 @@ namespace GraphicRenamer
                                 MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                            #endregion
                         }
                     }
-                    #endregion
-                    #region PDF
-                    else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+                    //pdf
+                    else if (extension == ".pdf")
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -285,17 +282,13 @@ namespace GraphicRenamer
                             #endregion
                         }
                     }
-                    #endregion
                 }
-                #endregion
             }
-            #region catch
             catch (Exception ex)
             {
                 MessageBox.Show("[pictureBox1_DragDrop] " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("[pictureBox1_DragDrop] " + ex.Message);
             }
-            #endregion
         }
 
         #region Functions for error check
