@@ -84,7 +84,9 @@ namespace GraphicRenamer
                 }
 
                 if (!isSameType(gFiles))
-                { return; }
+                { 
+                    return; 
+                }
                 #endregion
 
                 //Convert gFiles from array to ArrayList, then sort it
@@ -313,11 +315,13 @@ namespace GraphicRenamer
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
-                    if (!(gFiles[i].Substring(gFiles[i].Length - 4).ToLower() == ".jpg") || (gFiles[i].Substring(gFiles[i].Length - 5).ToLower() == ".jpeg"))
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((extension == ".jpg") || (extension == ".jpeg")))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
+
                 }
                 return true;
             }
@@ -327,7 +331,9 @@ namespace GraphicRenamer
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
-                    if (!(gFiles[i].Substring(gFiles[i].Length - 4).ToLower() == ".pdf"))
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+
+                    if (!(extension == ".pdf"))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
