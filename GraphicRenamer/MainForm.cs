@@ -157,7 +157,6 @@ namespace GraphicRenamer
                             logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
                             logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
                         }
-                        #region catch
                         catch (IOException)
                         {
                             MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -173,7 +172,33 @@ namespace GraphicRenamer
                             MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        #endregion
+                    }
+                    else if ((gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".heic") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".HEIC"))
+                    {
+                        try
+                        {
+                            var outputPath = @"../test.jpg";
+                            HeicToJpeg.Convert(gFilesArray[0].ToString(), outputPath);
+                            File.Move(outputPath, imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
+                            logTitle(Path.GetDirectoryName(outputPath), imgPath);
+                            logFileName(Path.GetFileName(outputPath), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
+                            File.Delete(outputPath);
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
                     else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
                     {
@@ -209,10 +234,46 @@ namespace GraphicRenamer
                     createFolder(subFolderName);
                     logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), subFolderName);
 
-                    //JPEG
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
+                    //heic
+                    if (extension == "HEIC" || extension == "HEIF" || extension == "heic" || extension == "HEIF" )
+                    {
+                        for (int i = 0; i < gFilesArray.Count; i++)
+                        {
+                            if (plusZero((i + 1).ToString(), 3) == "Error")
+                            {
+                                MessageBox.Show(Properties.Resources.SerialNoOver999, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
 
-                    if ((extension == ".jpg") || (extension == ".jpeg"))
+                            try
+                            {
+                                var outputPath = @"../test.jpg";
+                                HeicToJpeg.Convert(gFilesArray[i].ToString(), outputPath);
+
+                                File.Move(outputPath, subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
+                                logFileName(Path.GetFileName(outputPath), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
+                                File.Delete(outputPath);
+                            }
+                            catch (IOException)
+                            {
+                                MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                    }
+                    //JPEG
+                    else if ((extension == ".jpg") || (extension == ".jpeg"))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -312,6 +373,21 @@ namespace GraphicRenamer
 
             //最初のstringがjpgだった場合、他が全部jpgかどうか確認する。違ったらfalse返す。
             if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+            {
+                for (int i = 1; i < gFiles.Length; i++)
+                {
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((extension == ".jpg") || (extension == ".jpeg")))
+                    {
+                        MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+                return true;
+            }
+
+            if ((gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".heic") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".HEIC"))
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {

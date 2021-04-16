@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicRenamer", "GraphicRenamer\GraphicRenamer.csproj", "{4DBCEC9A-8597-4DC2-8C2F-D54A6E7F2071}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicRenamerTests", "GraphicRenamerTests\GraphicRenamerTests.csproj", "{CC6FA394-D2CA-46E9-8C8A-22F714F49D89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conv1to2", "Conv1to2\Conv1to2.csproj", "{28B827F2-F71B-4491-94F7-7DE633851F4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicRenamerTests1", "GraphicRenamerTests1\GraphicRenamerTests1.csproj", "{38C607F9-BDE5-4814-B3C9-48E1CFCCE87F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28B827F2-F71B-4491-94F7-7DE633851F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C607F9-BDE5-4814-B3C9-48E1CFCCE87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C607F9-BDE5-4814-B3C9-48E1CFCCE87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C607F9-BDE5-4814-B3C9-48E1CFCCE87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C607F9-BDE5-4814-B3C9-48E1CFCCE87F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
