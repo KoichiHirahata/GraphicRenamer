@@ -182,7 +182,7 @@ namespace GraphicRenamer
                             File.Move(outputPath, imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
                             logTitle(Path.GetDirectoryName(outputPath), imgPath);
                             logFileName(Path.GetFileName(outputPath), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".jpg");
-                            File.Delete(outputPath);
+                            File.Delete(gFilesArray[0].ToString());
                         }
                         catch (IOException)
                         {
@@ -253,7 +253,7 @@ namespace GraphicRenamer
 
                                 File.Move(outputPath, subFolderName + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
                                 logFileName(Path.GetFileName(outputPath), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + "-" + plusZero((i + 1).ToString(), 3) + ".jpg");
-                                File.Delete(outputPath);
+                                File.Delete(gFilesArray[i].ToString());
                             }
                             catch (IOException)
                             {
