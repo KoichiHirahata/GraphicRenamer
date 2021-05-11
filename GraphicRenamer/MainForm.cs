@@ -149,7 +149,9 @@ namespace GraphicRenamer
                 // 1File
                 if (gFilesArray.Count == 1)
                 {
-                    if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+                    var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
+
+                    if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
                     {
                         try
                         {
@@ -173,7 +175,7 @@ namespace GraphicRenamer
                             return;
                         }
                     }
-                    else if ((gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".heic") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".HEIC"))
+                    else if ((string.Compare(extension, ".heic", true) == 0) || (string.Compare(extension, ".heif", true) == 0))
                     {
                         try
                         {
@@ -200,7 +202,7 @@ namespace GraphicRenamer
                             return;
                         }
                     }
-                    else if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+                    else if (extension == ".pdf")
                     {
                         try
                         {
@@ -236,7 +238,8 @@ namespace GraphicRenamer
 
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
                     //heic
-                    if (extension == "HEIC" || extension == "HEIF" || extension == "heic" || extension == "HEIF" )
+
+                    if ((string.Compare(extension, ".heic", true) == 0) || (string.Compare(extension, ".heif", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -273,7 +276,7 @@ namespace GraphicRenamer
                         }
                     }
                     //JPEG
-                    else if ((extension == ".jpg") || (extension == ".jpeg"))
+                    else if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
