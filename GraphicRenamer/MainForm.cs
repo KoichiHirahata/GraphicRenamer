@@ -375,12 +375,13 @@ namespace GraphicRenamer
             }
 
             //最初のstringがjpgだった場合、他が全部jpgかどうか確認する。違ったらfalse返す。
-            if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+            var firstxxtension = System.IO.Path.GetExtension(gFiles[0].ToString());
+            if ((string.Compare(firstxxtension, ".jpg", true) == 0) || (string.Compare(firstxxtension, ".jpeg", true) == 0))
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
-                    if (!((extension == ".jpg") || (extension == ".jpeg")))
+                    if (!((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0)))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -395,7 +396,7 @@ namespace GraphicRenamer
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
-                    if (!((extension == ".jpg") || (extension == ".jpeg")))
+                    if (!((extension == ".heic") || (extension == ".HEIC")))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
