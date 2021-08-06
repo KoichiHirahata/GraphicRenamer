@@ -228,6 +228,58 @@ namespace GraphicRenamer
                         }
                         #endregion
                     }
+                    else if (extension == ".doc" || extension == ".docx")
+                    {
+                        try
+                        {
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion
+                    }
+                    else if (extension == ".xls" || extension == ".xlsx")
+                    {
+                        try
+                        {
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion
+                    }
                 }
                 // more file
                 else
@@ -390,7 +442,37 @@ namespace GraphicRenamer
                 }
                 return true;
             }
+            //word
+            if ((string.Compare(firstxxtension, ".doc", true) == 0) || (string.Compare(firstxxtension, ".docx", true) == 0))
+            {
+                for (int i = 1; i < gFiles.Length; i++)
+                {
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((string.Compare(extension, ".doc", true) == 0) || (string.Compare(extension, ".docx", true) == 0)))
+                    {
+                        MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
 
+                }
+                return true;
+            }
+            //excel
+            if ((string.Compare(firstxxtension, ".xls", true) == 0) || (string.Compare(firstxxtension, ".xlsx", true) == 0))
+            {
+                for (int i = 1; i < gFiles.Length; i++)
+                {
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((string.Compare(extension, ".xls", true) == 0) || (string.Compare(extension, ".xlsx", true) == 0)))
+                    {
+                        MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+                return true;
+            }
+            //heic
             if ((gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".heic") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".HEIC"))
             {
                 for (int i = 1; i < gFiles.Length; i++)
@@ -407,6 +489,7 @@ namespace GraphicRenamer
             }
 
             //最初のstringがpdfだった場合、他が全部pdfかどうか確認する。違ったらfalse返す。
+            //pdf
             if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
             {
                 for (int i = 1; i < gFiles.Length; i++)
@@ -454,7 +537,7 @@ namespace GraphicRenamer
         public static string getSerialNo(string imgPath, string patientID, string dateStr) //一番進んでいる通し番号をチェック調べて+1した数を返す。例）ID_日付_通し番号-サブ番号.jpg
         {
             int ret = 0;
-            string[] gFiles = Directory.GetFiles(imgPath, patientID + "_" + dateStr + "_*.???", SearchOption.TopDirectoryOnly);
+            string[] gFiles = Directory.GetFiles(imgPath, patientID + "_" + dateStr + "_*.*", SearchOption.TopDirectoryOnly);
             string[] gFolders = Directory.GetDirectories(imgPath, patientID + "_" + dateStr + "_*", SearchOption.TopDirectoryOnly);
             string tempName;
             int tempNo;
