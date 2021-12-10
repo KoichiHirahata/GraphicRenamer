@@ -151,7 +151,8 @@ namespace GraphicRenamer
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
 
-                    if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
+                    if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0) 
+                        || (string.Compare(extension, ".JPG", true) == 0) || (string.Compare(extension, ".JPEG", true) == 0))
                     {
                         try
                         {
@@ -202,7 +203,7 @@ namespace GraphicRenamer
                             return;
                         }
                     }
-                    else if (extension == ".pdf")
+                    else if (extension == ".pdf" || extension == ".PDF")
                     {
                         try
                         {
@@ -290,7 +291,6 @@ namespace GraphicRenamer
 
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
                     //heic
-
                     if ((string.Compare(extension, ".heic", true) == 0) || (string.Compare(extension, ".heif", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
@@ -328,7 +328,8 @@ namespace GraphicRenamer
                         }
                     }
                     //JPEG
-                    else if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
+                    else if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0)
+                        || (string.Compare(extension, ".JPG", true) == 0) || (string.Compare(extension, ".JPEG", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -363,7 +364,7 @@ namespace GraphicRenamer
                         }
                     }
                     //pdf
-                    else if (extension == ".pdf")
+                    else if (extension == ".pdf" || extension == ".PDF")
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -428,12 +429,14 @@ namespace GraphicRenamer
 
             //最初のstringがjpgだった場合、他が全部jpgかどうか確認する。違ったらfalse返す。
             var firstxxtension = System.IO.Path.GetExtension(gFiles[0].ToString());
-            if ((string.Compare(firstxxtension, ".jpg", true) == 0) || (string.Compare(firstxxtension, ".jpeg", true) == 0))
+            if ((string.Compare(firstxxtension, ".jpg", true) == 0) || (string.Compare(firstxxtension, ".jpeg", true) == 0)
+                || (string.Compare(firstxxtension, ".JPG", true) == 0) || (string.Compare(firstxxtension, ".JPEG", true) == 0))
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
-                    if (!((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0)))
+                    if (!((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0) 
+                        || (string.Compare(firstxxtension, ".JPG", true) == 0) || (string.Compare(firstxxtension, ".JPEG", true) == 0)))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -490,13 +493,13 @@ namespace GraphicRenamer
 
             //最初のstringがpdfだった場合、他が全部pdfかどうか確認する。違ったらfalse返す。
             //pdf
-            if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+            if (firstxxtension == ".pdf" || firstxxtension == ".PDF")
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
 
-                    if (!(extension == ".pdf"))
+                    if (!(extension == ".pdf" || extension == ".PDF"))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
