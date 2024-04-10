@@ -151,7 +151,8 @@ namespace GraphicRenamer
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
 
-                    if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
+                    if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0) 
+                        || (string.Compare(extension, ".JPG", true) == 0) || (string.Compare(extension, ".JPEG", true) == 0))
                     {
                         try
                         {
@@ -202,13 +203,65 @@ namespace GraphicRenamer
                             return;
                         }
                     }
-                    else if (extension == ".pdf")
+                    else if (extension == ".pdf" || extension == ".PDF")
                     {
                         try
                         {
                             File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
                             logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
                             logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + ".pdf");
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion
+                    }
+                    else if (extension == ".doc" || extension == ".docx")
+                    {
+                        try
+                        {
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                        }
+                        #region catch
+                        catch (IOException)
+                        {
+                            MessageBox.Show("[IO Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("[Unauthorized Access Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (ArgumentException)
+                        {
+                            MessageBox.Show("[Argument Exception]" + Properties.Resources.HasOccurred, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion
+                    }
+                    else if (extension == ".xls" || extension == ".xlsx")
+                    {
+                        try
+                        {
+                            File.Move(gFilesArray[0].ToString(), imgPath + @"\" + tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
+                            logTitle(Path.GetDirectoryName(gFilesArray[0].ToString()), imgPath);
+                            logFileName(Path.GetFileName(gFilesArray[0].ToString()), tbID.Text + "_" + monthCalendar1.SelectionStart.ToString("yyyyMMdd") + "_" + serialNo + extension);
                         }
                         #region catch
                         catch (IOException)
@@ -238,7 +291,6 @@ namespace GraphicRenamer
 
                     var extension = System.IO.Path.GetExtension(gFiles[0].ToString());
                     //heic
-
                     if ((string.Compare(extension, ".heic", true) == 0) || (string.Compare(extension, ".heif", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
@@ -276,7 +328,8 @@ namespace GraphicRenamer
                         }
                     }
                     //JPEG
-                    else if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0))
+                    else if ((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0)
+                        || (string.Compare(extension, ".JPG", true) == 0) || (string.Compare(extension, ".JPEG", true) == 0))
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -311,7 +364,7 @@ namespace GraphicRenamer
                         }
                     }
                     //pdf
-                    else if (extension == ".pdf")
+                    else if (extension == ".pdf" || extension == ".PDF")
                     {
                         for (int i = 0; i < gFilesArray.Count; i++)
                         {
@@ -375,12 +428,15 @@ namespace GraphicRenamer
             }
 
             //最初のstringがjpgだった場合、他が全部jpgかどうか確認する。違ったらfalse返す。
-            if ((gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".jpg") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".jpeg"))
+            var firstxxtension = System.IO.Path.GetExtension(gFiles[0].ToString());
+            if ((string.Compare(firstxxtension, ".jpg", true) == 0) || (string.Compare(firstxxtension, ".jpeg", true) == 0)
+                || (string.Compare(firstxxtension, ".JPG", true) == 0) || (string.Compare(firstxxtension, ".JPEG", true) == 0))
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
-                    if (!((extension == ".jpg") || (extension == ".jpeg")))
+                    if (!((string.Compare(extension, ".jpg", true) == 0) || (string.Compare(extension, ".jpeg", true) == 0) 
+                        || (string.Compare(firstxxtension, ".JPG", true) == 0) || (string.Compare(firstxxtension, ".JPEG", true) == 0)))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -389,13 +445,43 @@ namespace GraphicRenamer
                 }
                 return true;
             }
+            //word
+            if ((string.Compare(firstxxtension, ".doc", true) == 0) || (string.Compare(firstxxtension, ".docx", true) == 0))
+            {
+                for (int i = 1; i < gFiles.Length; i++)
+                {
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((string.Compare(extension, ".doc", true) == 0) || (string.Compare(extension, ".docx", true) == 0)))
+                    {
+                        MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
 
+                }
+                return true;
+            }
+            //excel
+            if ((string.Compare(firstxxtension, ".xls", true) == 0) || (string.Compare(firstxxtension, ".xlsx", true) == 0))
+            {
+                for (int i = 1; i < gFiles.Length; i++)
+                {
+                    var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
+                    if (!((string.Compare(extension, ".xls", true) == 0) || (string.Compare(extension, ".xlsx", true) == 0)))
+                    {
+                        MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+                return true;
+            }
+            //heic
             if ((gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".heic") || (gFiles[0].Substring(gFiles[0].Length - 5).ToLower() == ".HEIC"))
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
-                    if (!((extension == ".jpg") || (extension == ".jpeg")))
+                    if (!((extension == ".heic") || (extension == ".HEIC")))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -406,13 +492,14 @@ namespace GraphicRenamer
             }
 
             //最初のstringがpdfだった場合、他が全部pdfかどうか確認する。違ったらfalse返す。
-            if (gFiles[0].Substring(gFiles[0].Length - 4).ToLower() == ".pdf")
+            //pdf
+            if (firstxxtension == ".pdf" || firstxxtension == ".PDF")
             {
                 for (int i = 1; i < gFiles.Length; i++)
                 {
                     var extension = System.IO.Path.GetExtension(gFiles[i].ToString());
 
-                    if (!(extension == ".pdf"))
+                    if (!(extension == ".pdf" || extension == ".PDF"))
                     {
                         MessageBox.Show(Properties.Resources.DontDropJpgWithOther, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -453,7 +540,7 @@ namespace GraphicRenamer
         public static string getSerialNo(string imgPath, string patientID, string dateStr) //一番進んでいる通し番号をチェック調べて+1した数を返す。例）ID_日付_通し番号-サブ番号.jpg
         {
             int ret = 0;
-            string[] gFiles = Directory.GetFiles(imgPath, patientID + "_" + dateStr + "_*.???", SearchOption.TopDirectoryOnly);
+            string[] gFiles = Directory.GetFiles(imgPath, patientID + "_" + dateStr + "_*.*", SearchOption.TopDirectoryOnly);
             string[] gFolders = Directory.GetDirectories(imgPath, patientID + "_" + dateStr + "_*", SearchOption.TopDirectoryOnly);
             string tempName;
             int tempNo;
